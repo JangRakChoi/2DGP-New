@@ -211,7 +211,16 @@ def MoveEighthStep() :
     StopRightSide(x, y)
 
 def MoveninthStep() :
-    pass
+    frame, x, y = 0, 682, 336
+    while (x < 712):
+        clear_canvas()
+        grass.draw(400, 30)
+        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        update_canvas()
+        frame = (frame + 1) % 8
+        x += 2
+        delay(0.01)
+        get_events()
 
 def MovetenthStep() :
     pass
@@ -224,7 +233,7 @@ while True :
     #MoveFifthStep()
     #MoveSixthStep()
     #MoveSeventhStep()
-    MoveEighthStep()
+    #MoveEighthStep()
     MoveninthStep()
     MovetenthStep()
 
