@@ -11,7 +11,11 @@ def StopRightSide(x, y) :
     delay(0.2)
 
 def StopLeftSide(x, y) :
-    pass
+    clear_canvas()
+    grass.draw(400, 30)
+    character.clip_draw(0, 200, 100, 100, x, y)
+    update_canvas()
+    delay(0.2)
 
 def MoveFirstStep() :
     frame, x, y = 0, 203, 535
@@ -48,6 +52,18 @@ def MoveSecondStep() :
         x += 5
         delay(0.01)
         get_events()
+
+    while (y < 470) :
+        clear_canvas()
+        grass.draw(400, 30)
+        character.clip_draw(frame * 100, 0, 100, 100, x, y)
+        update_canvas()
+        frame = (frame + 1) % 8
+        y += 5
+        delay(0.01)
+        get_events()
+
+    StopLeftSide(x, y)
 
 def MoveThirdStep() :
     pass
