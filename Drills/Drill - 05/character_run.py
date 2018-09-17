@@ -246,6 +246,17 @@ def MovetenthStep() :
         delay(0.01)
         get_events()
 
+    while (y < 535) :
+        clear_canvas()
+        grass.draw(400, 30)
+        character.clip_draw(frame * 100, 0, 100, 100, x, y)
+        update_canvas()
+        frame = (frame + 1) % 8
+        y += 5
+        delay(0.01)
+        get_events()
+
+    StopLeftSide(x, y)
 
 while True :
     #MoveFirstStep()
