@@ -231,11 +231,21 @@ def MoveninthStep() :
         y += 2
         delay(0.01)
         get_events()
-    
+
     StopLeftSide(x, y)
 
 def MovetenthStep() :
-    pass
+    frame, x, y = 0, 712, 349
+    while (x > 203):
+        clear_canvas()
+        grass.draw(400, 30)
+        character.clip_draw(frame * 100, 0, 100, 100, x, y)
+        update_canvas()
+        frame = (frame + 1) % 8
+        x -= 5
+        delay(0.01)
+        get_events()
+
 
 while True :
     #MoveFirstStep()
@@ -246,7 +256,7 @@ while True :
     #MoveSixthStep()
     #MoveSeventhStep()
     #MoveEighthStep()
-    MoveninthStep()
+    #MoveninthStep()
     MovetenthStep()
 
 close_canvas()
