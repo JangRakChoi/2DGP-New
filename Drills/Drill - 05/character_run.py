@@ -38,7 +38,16 @@ def MoveFirstStep() :
     StopRightSide(x, y)
 
 def MoveSecondStep() :
-    pass
+    frame, x, y = 0, 132, 243
+    while (x < 535):
+        clear_canvas()
+        grass.draw(400, 30)
+        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        update_canvas()
+        frame = (frame + 1) % 8
+        x += 5
+        delay(0.01)
+        get_events()
 
 def MoveThirdStep() :
     pass
@@ -65,7 +74,7 @@ def MovetenthStep() :
     pass
 
 while True :
-    MoveFirstStep()
+    #MoveFirstStep()
     MoveSecondStep()
     MoveThirdStep()
     MoveFourthStep()
