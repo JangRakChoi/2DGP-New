@@ -21,6 +21,10 @@ def Draw(p1, p2) :
         else:
             character.clip_draw(frame * 100, 0, 100, 100, x, y)
 
+        delay(0.05)
+        update_canvas()
+        frame = (frame + 1) % 8
+        kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
 
 size = 20
 n = 1
