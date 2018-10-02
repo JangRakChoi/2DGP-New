@@ -7,20 +7,24 @@ open_canvas(KPU_WIDTH, KPU_HEIGHT)
 kpu_ground = load_image('KPU_GROUND.png')
 character = load_image('animation_sheet.png')
 
-frame, temp = 0, 0
+frame = 0
 running = True
 
-def Draw(x, y) :
-    pass
+def Draw(p1, p2) :
+    global frame
+    for i in range(0, 100 + 1, 1):
+        t = i / 100
+        x = (1 - t) * p1[0] + t * p2[0]
+        y = (1 - t) * p1[1] + t * p2[1]
+        character.clip_draw(frame * 100, 100, 100, 100, x, y)
 
-while running :
-    pass
 
 size = 20
 n = 1
-points = [(random.randint(0, 1000), random.randint(0, 1000)) for n in range(size)]
-while True :
+points = [(random.randint(0, 1000), random.randint(0, 1000)) for i in range(size)]
+
+while running :
     Draw(points[n-1], points[n])
-    n = (n + 1) & size
+    n = (n + 1) % size
 
 close_canvas()
