@@ -16,7 +16,10 @@ def Draw(p1, p2) :
         t = i / 100
         x = (1 - t) * p1[0] + t * p2[0]
         y = (1 - t) * p1[1] + t * p2[1]
-        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        if (p1[0] < p2[0]):
+            character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        else:
+            character.clip_draw(frame * 100, 0, 100, 100, x, y)
 
 
 size = 20
