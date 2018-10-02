@@ -29,5 +29,6 @@ points = [(random.randint(0, 1000), random.randint(0, 1000)) for i in range(size
 while running :
     Draw(points[n-1], points[n])
     n = (n + 1) % size
+    frame = 0
 
 close_canvas()
