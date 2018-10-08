@@ -97,8 +97,18 @@ while running :
     # draw p9-p10
     for i in range(0, 100, 1):
         t = i / 100
-        x = ((-t ** 3 + 2 * t ** 2 - t) * xPos[7] + (3 * t ** 3 - 5 * t ** 2 + 2) * xPos[8] + (-3 * t ** 3 + 4 * t ** 2 + t) * xPos[9] + (t ** 3 - t ** 2) * xPos[9]) / 2
-        y = ((-t ** 3 + 2 * t ** 2 - t) * yPos[7] + (3 * t ** 3 - 5 * t ** 2 + 2) * yPos[8] + (-3 * t ** 3 + 4 * t ** 2 + t) * yPos[9] + (t ** 3 - t ** 2) * yPos[9]) / 2
+        x = ((-t ** 3 + 2 * t ** 2 - t) * xPos[7] + (3 * t ** 3 - 5 * t ** 2 + 2) * xPos[8] + (-3 * t ** 3 + 4 * t ** 2 + t) * xPos[9] + (t ** 3 - t ** 2) * xPos[0]) / 2
+        y = ((-t ** 3 + 2 * t ** 2 - t) * yPos[7] + (3 * t ** 3 - 5 * t ** 2 + 2) * yPos[8] + (-3 * t ** 3 + 4 * t ** 2 + t) * yPos[9] + (t ** 3 - t ** 2) * yPos[0]) / 2
+        Draw(x, y)
+
+    frame = 0
+    # draw p10-p1
+    for i in range(0, 100, 1):
+        t = i / 100
+        x = ((-t ** 3 + 2 * t ** 2 - t) * xPos[8] + (3 * t ** 3 - 5 * t ** 2 + 2) * xPos[9] + (
+                    -3 * t ** 3 + 4 * t ** 2 + t) * xPos[0] + (t ** 3 - t ** 2) * xPos[1]) / 2
+        y = ((-t ** 3 + 2 * t ** 2 - t) * yPos[8] + (3 * t ** 3 - 5 * t ** 2 + 2) * yPos[9] + (
+                    -3 * t ** 3 + 4 * t ** 2 + t) * yPos[0] + (t ** 3 - t ** 2) * yPos[1]) / 2
         Draw(x, y)
 
 close_canvas()
