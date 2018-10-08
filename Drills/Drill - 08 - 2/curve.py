@@ -85,4 +85,12 @@ while running :
         y = ((-t ** 3 + 2 * t ** 2 - t) * yPos[5] + (3 * t ** 3 - 5 * t ** 2 + 2) * yPos[6] + (-3 * t ** 3 + 4 * t ** 2 + t) * yPos[7] + (t ** 3 - t ** 2) * yPos[8]) / 2
         Draw(x, y)
 
+    frame = 0
+    # draw p8-p9
+    for i in range(0, 100, 1):
+        t = i / 100
+        x = ((-t ** 3 + 2 * t ** 2 - t) * xPos[6] + (3 * t ** 3 - 5 * t ** 2 + 2) * xPos[7] + (-3 * t ** 3 + 4 * t ** 2 + t) * xPos[8] + (t ** 3 - t ** 2) * xPos[9]) / 2
+        y = ((-t ** 3 + 2 * t ** 2 - t) * yPos[6] + (3 * t ** 3 - 5 * t ** 2 + 2) * yPos[7] + (-3 * t ** 3 + 4 * t ** 2 + t) * yPos[8] + (t ** 3 - t ** 2) * yPos[9]) / 2
+        Draw(x, y)
+
 close_canvas()
