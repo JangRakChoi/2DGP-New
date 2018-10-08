@@ -27,6 +27,13 @@ def Draw(x, y) :
     delay(0.05)
 
 while running :
-    Draw(100, 100)
+    # draw p1-p2
+    for i in range(0, 50, 1):
+        t = i / 100
+        x = (2 * t ** 2 - 3 * t + 1) * xPos[0] + (-4 * t ** 2 + 4 * t) * xPos[1] + (2 * t ** 2 - t) * xPos[2]
+        y = (2 * t ** 2 - 3 * t + 1) * yPos[0] + (-4 * t ** 2 + 4 * t) * yPos[1] + (2 * t ** 2 - t) * yPos[2]
+        Draw(x, y)
+
+    
 
 close_canvas()
