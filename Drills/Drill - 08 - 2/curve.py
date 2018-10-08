@@ -42,4 +42,14 @@ while running :
         y = ((-t**3+2*t**2-t)*yPos[0] + (3*t**3-5*t**2+2)*yPos[1]+(-3*t**3+4*t**2+t)*yPos[2] + (t**3-t**2)*yPos[3]) / 2
         Draw(x, y)
 
+    frame = 0
+    # draw p3-p4
+    for i in range(0, 100, 1):
+        t = i / 100
+        x = ((-t ** 3 + 2 * t ** 2 - t) * xPos[1] + (3 * t ** 3 - 5 * t ** 2 + 2) * xPos[2] + (-3 * t ** 3 + 4 * t ** 2 + t) * xPos[3] + (t ** 3 - t ** 2) * xPos[4]) / 2
+        y = ((-t ** 3 + 2 * t ** 2 - t) * yPos[1] + (3 * t ** 3 - 5 * t ** 2 + 2) * yPos[2] + (-3 * t ** 3 + 4 * t ** 2 + t) * yPos[3] + (t ** 3 - t ** 2) * yPos[4]) / 2
+        Draw(x, y)
+
+
+
 close_canvas()
