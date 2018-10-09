@@ -57,17 +57,24 @@ def handle_events():
             running = False
 
 open_canvas()
+
 boy = Boy()
+balls = [Ball() for j in range(20)]
 grass = Grass()
 running = True
 
 while running:
     handle_events()
     boy.update()
+    for ball in balls:
+        ball.update()
     clear_canvas()
-    grass.draw()
     boy.draw()
+    for ball in balls:
+        ball.draw()
+    grass.draw()
     update_canvas()
     delay(0.05)
+
 
 close_canvas()
