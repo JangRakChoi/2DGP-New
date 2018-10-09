@@ -10,7 +10,7 @@ class Grass :
 
 class Boy:
     def __init__(self):
-        self.x, self.y = random.randint(50, 700), 90
+        self.x, self.y = random.randint(10, 500), 90
         self.frame = random.randint(0, 7)
         self.image = load_image('run_animation.png')
 
@@ -77,6 +77,5 @@ while running:
     grass.draw()
     update_canvas()
     delay(0.05)
-
 
 close_canvas()
