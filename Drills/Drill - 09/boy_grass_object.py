@@ -23,9 +23,9 @@ class Boy:
 
 class Ball:
     def __init__(self):
-        self.x, self.y = random.randint(10, 780), 700
+        self.x, self.y = random.randint(10, 790), 700
         self.ball_size = random.randint(0, 1)
-        self.speed = random.randint(5, 20)
+        self.speed = random.randint(5, 10)
 
         if self.ball_size == 0:
             self.image = load_image('ball21x21.png')
