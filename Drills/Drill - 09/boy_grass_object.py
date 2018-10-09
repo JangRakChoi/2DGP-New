@@ -10,8 +10,8 @@ class Grass :
 
 class Boy:
     def __init__(self):
-        self.x, self.y = 0, 90
-        self.frame = 0
+        self.x, self.y = random.randint(50, 700), 90
+        self.frame = random.randint(0, 7)
         self.image = load_image('run_animation.png')
 
     def update(self):
@@ -58,19 +58,21 @@ def handle_events():
 
 open_canvas()
 
-boy = Boy()
+team = [Boy() for i in range(11)]
 balls = [Ball() for j in range(20)]
 grass = Grass()
 running = True
 
 while running:
     handle_events()
-    boy.update()
+    for boy in team :
+        boy.update()
     for ball in balls:
         ball.update()
     clear_canvas()
-    boy.draw()
-    for ball in balls:
+    for boy in team:
+        boy.draw()
+    for ball in balls :
         ball.draw()
     grass.draw()
     update_canvas()
