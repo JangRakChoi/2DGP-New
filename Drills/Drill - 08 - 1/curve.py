@@ -102,9 +102,6 @@ def draw_curve_5_points(p1, p2, p3, p4, p5):
         draw_point((x, y))
     draw_point(p1)
 
-
-
-
 prepare_turtle_canvas()
 
 point = [(-300, 200), (400, 350), (300, -300), (100, 100), (-200, -200)]
