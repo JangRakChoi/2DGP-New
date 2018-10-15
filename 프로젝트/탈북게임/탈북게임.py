@@ -1,8 +1,13 @@
 from pico2d import *
 import random
 
+open_canvas()
+
 class Map :
-    pass
+    def __init__(self) :
+        self.image = load_image('map3.png')
+    def draw(self) :
+        self.image.draw(300, 300)
 
 class Player:
     pass
@@ -13,11 +18,16 @@ class Enemy:
 def handle_events():
     pass
 
-open_canvas()
+def update():
+    pass
 
+player = Player()
+background = Map()
 running = True
 
 while running:
-    pass
+    background.draw()
+    update_canvas()
+    delay(0.05)
 
 close_canvas()
