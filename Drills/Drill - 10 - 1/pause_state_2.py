@@ -16,14 +16,14 @@ def exit():
 
 def update():
     global frame
-    frame = (frame + 1) % 100
+    frame = (frame + 1) % 200
 
 def draw():
     global frame
     clear_canvas()
     main_state_2.grass.draw()
     main_state_2.boy.draw()
-    if (frame % 100 < 50) :
+    if (frame % 200 < 100) :
         image.clip_draw(250, 250, 400, 400, 800 // 2, 600 // 2)
     update_canvas()
 
