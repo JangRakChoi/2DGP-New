@@ -3,6 +3,7 @@ import json
 import os
 
 from pico2d import *
+import pause_state
 
 import game_framework
 import title_state
@@ -75,6 +76,8 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_state(title_state)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_p :
+            game_framework.push_state(pause_state)
 
 
 def update():
