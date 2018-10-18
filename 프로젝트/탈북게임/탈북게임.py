@@ -17,10 +17,12 @@ class Enemy:
         self.frame = 0
 
     def update(self) :
-        pass
+        self.frame = (self.frame + 1) % 8
+        self.x = random.randint(-5, 5)
+        self.y = random.randint(-5, 5)
 
     def draw(self) :
-        self.image.clip_draw(self.frame * 0, 200, 110, 100, self.x, self.y)
+        self.image.clip_draw(self.frame * 120, 0, 110, 100, self.x, self.y)
 
 class Player:
     def __init__(self) :
