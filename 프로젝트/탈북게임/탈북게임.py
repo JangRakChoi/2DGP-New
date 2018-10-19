@@ -3,8 +3,8 @@ import random
 
 open_canvas(1920, 1080)
 
-xPos = [random.randint(500, 1920 - 300) for n1 in range(10)]
-yPos = [random.randint(0, 1080 - 300) for n2 in range(10)]
+xPos = [random.randint(900, 1920 - 300) for n1 in range(20)]
+yPos = [random.randint(0, 1080 - 300) for n2 in range(20)]
 t = 0
 dirX = 0
 dirY = 0
@@ -20,11 +20,11 @@ class Enemy:
         self.image = load_image("enemy.png")
         # soldier pivot : 50X50
         self.where = random.randint(0, 3)
-        self.x, self.y = 0, 0
+        self.x, self.y = random.randint(900, 1920 - 100), random.randint(0, 1080 - 100)
         self.nowX, self.nowY = 0, 0
         self.frame = random.randint(0, 4)
         self.n = 0
-        self.count = random.randint(0, 9)
+        self.count = random.randint(0, 19)
 
     def update(self) :
         self.frame = (self.frame + 1) % 5
@@ -38,7 +38,7 @@ class Enemy:
         self.y = ((-t ** 3 + 2 * t ** 2 - t) * yPos[(self.count - 3)] + (3 * t ** 3 - 5 * t ** 2 + 2) * yPos[(self.count - 2)] + (
                     -3 * t ** 3 + 4 * t ** 2 + t) * yPos[(self.count - 1)] + (t ** 3 - t ** 2) * yPos[(self.count)]) / 2
         if (self.n == 100) :
-            self.count = (self.count + 1) % 10
+            self.count = (self.count + 1) % 20
 
     def draw(self) :
         if (self.nowX > self.x) :
@@ -63,6 +63,14 @@ class Player:
         self.x += dirX * 10
         self.y += dirY * 10
 
+class Tree :
+    def __init__(self) :
+        self.image = load_image("Trees.png")
+        self.x = random.randint(300, 1920 - 100)
+        self.y = random.randint(0 + 100, 1080 - 100)
+
+    def draw(self) :
+        self.image.clip_draw(100, 145, 90, 140, self.x, self.y)
 
 running = True
 
@@ -97,8 +105,9 @@ def handle_events():
                 dirY += 1
 
 player = Player()
-enemies = [Enemy() for n in range(4)]
+enemies = [Enemy() for n in range(5)]
 background = Map()
+tree = Tree()
 
 while running:
     handle_events()
@@ -110,6 +119,7 @@ while running:
     player.draw()
     for enemy in enemies :
         enemy.draw()
+    tree.draw()
     update_canvas()
     delay(0.05)
 
