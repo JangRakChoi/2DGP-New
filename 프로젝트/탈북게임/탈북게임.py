@@ -83,7 +83,6 @@ class Bush :
 
 running = True
 
-
 def handle_events():
     global running
     global dirX
@@ -116,21 +115,23 @@ def handle_events():
 player = Player()
 enemies = [Enemy() for n in range(5)]
 background = Map()
-tree = Tree()
-bush = Bush()
+trees = [Tree() for n in range(5)]
+bushes = [Bush() for n in range(5)]
 
 while running:
     handle_events()
-    for enemy in enemies:
-        enemy.update()
     player.update()
+    for enemy in enemies :
+        enemy.update()
     clear_canvas()
     background.draw()
     player.draw()
     for enemy in enemies :
         enemy.draw()
-    tree.draw()
-    bush.draw()
+    for tree in trees :
+        tree.draw()
+    for bush in bushes :
+        bush.draw()
     update_canvas()
     delay(0.05)
 
