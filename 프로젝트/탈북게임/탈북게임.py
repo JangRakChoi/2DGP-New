@@ -3,6 +3,12 @@ import random
 
 open_canvas(1920, 1080)
 
+xPos = [random.randint(500, 1920 - 300) for n1 in range(10)]
+yPos = [random.randint(0, 1080 - 300) for n2 in range(10)]
+t = 0
+dirX = 0
+dirY = 0
+
 class Map :
     def __init__(self) :
         self.image = load_image('map3.png')
@@ -13,28 +19,45 @@ class Enemy:
     def __init__(self) :
         self.image = load_image("enemy.png")
         # soldier pivot : 50X50
-        self.x, self.y = random.randint(500, 1800), random.randint(100, 1000)
-        self.frame = 0
+        self.where = random.randint(0, 3)
+        self.x, self.y = 0, 0
+        self.nowX, self.nowY = 0, 0
+        self.frame = random.randint(0, 4)
+        self.n = 0
+        self.count = random.randint(0, 9)
 
     def update(self) :
-        self.frame = (self.frame + 1) % 8
-        self.x = random.randint(-5, 5)
-        self.y = random.randint(-5, 5)
+        self.frame = (self.frame + 1) % 5
+        self.n = self.n + 1
+        if (self.n > 100) :
+            self.n = 0
+        t = self.n / 100
+        self.nowX, self.nowY = self.x, self.y
+        self.x = ((-t ** 3 + 2 * t ** 2 - t) * xPos[(self.count - 3)] + (3 * t ** 3 - 5 * t ** 2 + 2) * xPos[(self.count - 2)] + (
+                    -3 * t ** 3 + 4 * t ** 2 + t) * xPos[(self.count - 1)] + (t ** 3 - t ** 2) * xPos[(self.count)]) / 2
+        self.y = ((-t ** 3 + 2 * t ** 2 - t) * yPos[(self.count - 3)] + (3 * t ** 3 - 5 * t ** 2 + 2) * yPos[(self.count - 2)] + (
+                    -3 * t ** 3 + 4 * t ** 2 + t) * yPos[(self.count - 1)] + (t ** 3 - t ** 2) * yPos[(self.count)]) / 2
+        if (self.n == 100) :
+            self.count = (self.count + 1) % 10
 
     def draw(self) :
-        self.image.clip_draw(self.frame * 120, 0, 110, 100, self.x, self.y)
+        if (self.nowX > self.x) :
+            self.image.clip_draw(self.frame * 115, 100, 110, 100, self.x, self.y)
+        elif (self.nowX <= self.x):
+            self.image.clip_draw(self.frame * 115, 0, 110, 100, self.x, self.y)
 
 class Player:
     def __init__(self) :
         self.image = load_image("player.png")
-        # soldier pivot : 50X50
         self.x, self.y = 300, 300
         self.frame = 0
 
-    def draw(self) :
+    def draw(self):
         self.image.clip_draw(self.frame, 80, 100, 80, self.x, self.y)
 
+
 running = True
+
 
 def handle_events():
     global running
@@ -45,19 +68,15 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
 
-
-def update():
-    pass
-
 player = Player()
 enemies = [Enemy() for n in range(4)]
 background = Map()
-MoveCheck = 0
 
 while running:
     handle_events()
     for enemy in enemies:
         enemy.update()
+    player.update()
     clear_canvas()
     background.draw()
     player.draw()
@@ -65,6 +84,5 @@ while running:
         enemy.draw()
     update_canvas()
     delay(0.05)
-    MoveCheck += 1
 
 close_canvas()

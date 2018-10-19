@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d758f4d3-90e8-4185-b452-4c91f70ccf2c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../Drills/Drill - 08 - 2/curve.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Drills/Drill - 08 - 2/curve.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/탈북게임/player.png" beforeDir="false" afterPath="$PROJECT_DIR$/탈북게임/player.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/탈북게임/탈북게임.py" beforeDir="false" afterPath="$PROJECT_DIR$/탈북게임/탈북게임.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -14,32 +17,32 @@
     <session id="155248594">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.0" value="1" />
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.4" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.opened" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="png" value="1" />
+          <entry key="png" value="4" />
           <entry key="py" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Image" value="1" />
+          <entry key="Image" value="4" />
           <entry key="Python" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="301" />
+          <entry key="py" value="1833" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="301" />
+          <entry key="Python" value="1833" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages" />
@@ -50,18 +53,36 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/탈북게임/탈북게임.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-662">
-              <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+            <state relative-caret-position="388">
+              <caret line="60" column="22" lean-forward="true" selection-start-line="60" selection-start-column="22" selection-end-line="60" selection-end-column="22" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
-                <marker date="1539879231205" expanded="true" signature="951:1184" ph="..." />
+                <marker date="1539941513811" expanded="true" signature="692:1470" ph="..." />
+                <marker date="1539941513811" expanded="true" signature="1904:2111" ph="..." />
+                <marker date="1539941513811" expanded="true" signature="2129:2228" ph="..." />
+                <marker date="1539941513811" expanded="true" signature="2266:2498" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/탈북게임/animation_sheet.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/탈북게임/player.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/탈북게임/enemy.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/탈북게임/bush.png">
           <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
@@ -109,7 +130,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Drills/Drill - 09" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Drills/Drill - 08 - 2" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -194,13 +215,25 @@
     <entry file="file://$PROJECT_DIR$/탈북게임/enemy.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/탈북게임/bush.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/탈북게임/animation_sheet.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/탈북게임/player.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/탈북게임/탈북게임.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-662">
-          <caret line="20" lean-forward="true" selection-start-line="20" selection-end-line="20" />
+        <state relative-caret-position="388">
+          <caret line="60" column="22" lean-forward="true" selection-start-line="60" selection-start-column="22" selection-end-line="60" selection-end-column="22" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
-            <marker date="1539879231205" expanded="true" signature="951:1184" ph="..." />
+            <marker date="1539941513811" expanded="true" signature="692:1470" ph="..." />
+            <marker date="1539941513811" expanded="true" signature="1904:2111" ph="..." />
+            <marker date="1539941513811" expanded="true" signature="2129:2228" ph="..." />
+            <marker date="1539941513811" expanded="true" signature="2266:2498" ph="..." />
           </folding>
         </state>
       </provider>
