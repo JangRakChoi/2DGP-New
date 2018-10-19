@@ -52,8 +52,16 @@ class Player:
         self.x, self.y = 300, 300
         self.frame = 0
 
-    def draw(self):
-        self.image.clip_draw(self.frame, 80, 100, 80, self.x, self.y)
+    def draw(self) :
+        if (dirX >= 0) :
+            self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x + 300, self.y + 300)
+        else :
+            self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x + 300, self.y + 300)
+
+    def update(self) :
+        self.frame = (self.frame + 1) % 8
+        self.x += dirX * 10
+        self.y += dirY * 10
 
 
 running = True
