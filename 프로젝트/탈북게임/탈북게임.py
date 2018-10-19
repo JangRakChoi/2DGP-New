@@ -72,6 +72,15 @@ class Tree :
     def draw(self) :
         self.image.clip_draw(100, 145, 90, 140, self.x, self.y)
 
+class Bush :
+    def __init__(self) :
+        self.image = load_image("bush.png")
+        self.x = random.randint(100, 1920 - 100)
+        self.y = random.randint(0 + 100, 1080 - 100)
+
+    def draw(self) :
+        self.image.clip_draw(0, 0, 150, 150, self.x, self.y)
+
 running = True
 
 
@@ -108,6 +117,7 @@ player = Player()
 enemies = [Enemy() for n in range(5)]
 background = Map()
 tree = Tree()
+bush = Bush()
 
 while running:
     handle_events()
@@ -120,6 +130,7 @@ while running:
     for enemy in enemies :
         enemy.draw()
     tree.draw()
+    bush.draw()
     update_canvas()
     delay(0.05)
 
