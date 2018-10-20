@@ -22,12 +22,12 @@ class Enemy:
         self.where = random.randint(0, 3)
         self.x, self.y = random.randint(900, 1920 - 100), random.randint(0, 1080 - 100)
         self.nowX, self.nowY = 0, 0
-        self.frame = random.randint(0, 4)
+        self.frame = random.randint(0, 5)
         self.n = 0
         self.count = random.randint(0, 19)
 
     def update(self) :
-        self.frame = (self.frame + 1) % 5
+        self.frame = (self.frame + 1) % 6
         self.n = self.n + 1
         if (self.n > 100) :
             self.n = 0
@@ -42,9 +42,9 @@ class Enemy:
 
     def draw(self) :
         if (self.nowX > self.x) :
-            self.image.clip_draw(self.frame * 115, 100, 110, 100, self.x, self.y)
+            self.image.clip_draw(self.frame * 133, 100, 133, 100, self.x, self.y)
         elif (self.nowX <= self.x):
-            self.image.clip_draw(self.frame * 115, 0, 110, 100, self.x, self.y)
+            self.image.clip_draw(self.frame * 133, 0, 133, 100, self.x, self.y)
 
 class Player:
     def __init__(self) :
