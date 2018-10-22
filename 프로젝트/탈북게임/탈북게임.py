@@ -20,7 +20,7 @@ class Enemy:
         self.image = load_image("enemy.png")
         # soldier pivot : 50X50
         self.where = random.randint(0, 3)
-        self.x, self.y = random.randint(900, 1920 - 100), random.randint(0, 1080 - 100)
+        self.x, self.y = random.randint(900, 1920 - 200), random.randint(0, 1080 - 200)
         self.nowX, self.nowY = 0, 0
         self.frame = random.randint(0, 5)
         self.n = 0
@@ -81,6 +81,13 @@ class Bush :
     def draw(self) :
         self.image.clip_draw(0, 0, 150, 150, self.x, self.y)
 
+class UI :
+    def __init__(self) :
+        self.image = load_image("UI.png")
+    def draw(self) :
+        self.image.draw(960, 150)
+
+
 running = True
 
 def handle_events():
@@ -113,10 +120,11 @@ def handle_events():
                 dirY += 1
 
 player = Player()
-enemies = [Enemy() for n in range(5)]
+enemies = [Enemy() for n3 in range(5)]
 background = Map()
-trees = [Tree() for n in range(5)]
-bushes = [Bush() for n in range(5)]
+trees = [Tree() for n4 in range(5)]
+bushes = [Bush() for n5 in range(5)]
+ui = UI()
 
 while running:
     handle_events()
@@ -132,6 +140,7 @@ while running:
         tree.draw()
     for bush in bushes :
         bush.draw()
+    ui.draw()
     update_canvas()
     delay(0.05)
 
