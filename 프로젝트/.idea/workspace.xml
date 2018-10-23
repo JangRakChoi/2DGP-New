@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d758f4d3-90e8-4185-b452-4c91f70ccf2c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/탈북게임/photothumb.db" beforeDir="false" afterPath="$PROJECT_DIR$/탈북게임/photothumb.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/탈북게임/탈북게임.py" beforeDir="false" afterPath="$PROJECT_DIR$/탈북게임/탈북게임.py" afterDir="false" />
-    </list>
+    <list default="true" id="d758f4d3-90e8-4185-b452-4c91f70ccf2c" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,12 +12,13 @@
     <session id="155248594">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="8" />
           <entry key="project.open.time.0" value="2" />
           <entry key="project.open.time.4" value="3" />
           <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.6" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.opened" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -54,8 +51,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/탈북게임/탈북게임.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="838">
-              <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+            <state relative-caret-position="812">
+              <caret line="88" selection-start-line="88" selection-end-line="88" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
                 <marker date="1540211178432" expanded="true" signature="2965:2967" ph="..." />
@@ -108,6 +105,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -124,11 +122,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Drills/Drill - 08 - 2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../../../../Lecture10" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -221,8 +218,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/탈북게임/탈북게임.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="838">
-          <caret line="88" lean-forward="true" selection-start-line="88" selection-end-line="88" />
+        <state relative-caret-position="812">
+          <caret line="88" selection-start-line="88" selection-end-line="88" />
           <folding>
             <element signature="e#0#20#0" expanded="true" />
             <marker date="1540211178432" expanded="true" signature="2965:2967" ph="..." />
