@@ -1,10 +1,10 @@
 from pico2d import *
 import random
 
-open_canvas(1920, 1080)
+open_canvas(1280, 1024)
 
-xPos = [random.randint(900, 1920 - 300) for n1 in range(20)]
-yPos = [random.randint(0, 1080 - 300) for n2 in range(20)]
+xPos = [random.randint(900, 1280 - 100) for n1 in range(20)]
+yPos = [random.randint(0, 1024 - 100) for n2 in range(20)]
 t = 0
 dirX = 0
 dirY = 0
@@ -13,14 +13,14 @@ class Map :
     def __init__(self) :
         self.image = load_image('map3.png')
     def draw(self) :
-        self.image.draw(960, 540)
+        self.image.draw(640, 512)
 
 class Enemy:
     def __init__(self) :
         self.image = load_image("enemy.png")
         # soldier pivot : 50X50
         self.where = random.randint(0, 3)
-        self.x, self.y = random.randint(900, 1920 - 200), random.randint(0, 1080 - 200)
+        self.x, self.y = random.randint(900, 1280 - 200), random.randint(0, 1024 - 200)
         self.nowX, self.nowY = 0, 0
         self.frame = random.randint(0, 5)
         self.n = 0
@@ -39,6 +39,8 @@ class Enemy:
                     -3 * t ** 3 + 4 * t ** 2 + t) * yPos[(self.count - 1)] + (t ** 3 - t ** 2) * yPos[(self.count)]) / 2
         if (self.n == 100) :
             self.count = (self.count + 1) % 20
+        self.x = clamp(50, self.x, 1280 - 50)
+        self.y = clamp(50, self.y, 1024 - 50)
 
     def draw(self) :
         if (self.nowX > self.x) :
@@ -49,19 +51,22 @@ class Enemy:
 class Player:
     def __init__(self) :
         self.image = load_image("player.png")
-        self.x, self.y = 300, 300
+        self.x, self.y = 0, 300
         self.frame = 0
+        self.hp = 100
 
     def draw(self) :
         if (dirX >= 0) :
-            self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x + 300, self.y + 300)
+            self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
         else :
-            self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x + 300, self.y + 300)
+            self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
 
     def update(self) :
         self.frame = (self.frame + 1) % 8
         self.x += dirX * 10
         self.y += dirY * 10
+        self.x = clamp(50, self.x, 1280 - 50)
+        self.y = clamp(50, self.y, 1024 - 50)
 
 class Tree :
     def __init__(self) :
@@ -81,11 +86,11 @@ class Bush :
     def draw(self) :
         self.image.clip_draw(0, 0, 150, 150, self.x, self.y)
 
-class UI :
+class ItemSlot :
     def __init__(self) :
-        self.image = load_image("UI.png")
+        self.image = load_image("ItemSlot.png")
     def draw(self) :
-        self.image.draw(960, 150)
+        self.image.draw(200, 30)
 
 
 running = True
@@ -124,7 +129,7 @@ enemies = [Enemy() for n3 in range(5)]
 background = Map()
 trees = [Tree() for n4 in range(5)]
 bushes = [Bush() for n5 in range(5)]
-ui = UI()
+itemslot = ItemSlot()
 
 while running:
     handle_events()
@@ -140,7 +145,7 @@ while running:
         tree.draw()
     for bush in bushes :
         bush.draw()
-    ui.draw()
+    itemslot.draw()
     update_canvas()
     delay(0.05)
 
