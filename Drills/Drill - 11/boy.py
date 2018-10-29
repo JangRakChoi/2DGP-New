@@ -134,7 +134,6 @@ class DashState :
         boy.timer -= 1
         boy.x += boy.velocity * 5
         boy.x = clamp(25, boy.x, 1600 - 25)
-        boy.timer -= 1
         if boy.timer == 0:
             boy.add_event(DASH_TIMER)
 
