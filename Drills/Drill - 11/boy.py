@@ -11,7 +11,7 @@ key_event_table = {
     (SDL_KEYDOWN, SDLK_LEFT): LEFT_DOWN,
     (SDL_KEYUP, SDLK_RIGHT): RIGHT_UP,
     (SDL_KEYUP, SDLK_LEFT): LEFT_UP,
-    (SDL_KEYDOWN, SDLK_SPACE) : SPACE,
+    (SDL_KEYDOWN, SDLK_SPACE): SPACE,
     (SDL_KEYDOWN, SDLK_RSHIFT): SHIFT_DOWN,
     (SDL_KEYDOWN, SDLK_LSHIFT): SHIFT_DOWN,
     (SDL_KEYUP, SDLK_RSHIFT): SHIFT_UP,
@@ -121,6 +121,7 @@ class DashState :
         elif event == LEFT_UP:
             boy.velocity += 1
         boy.dir = boy.velocity
+        boy.timer = 100
 
     @staticmethod
     def exit(boy, event):
@@ -133,6 +134,7 @@ class DashState :
         boy.timer -= 1
         boy.x += boy.velocity * 5
         boy.x = clamp(25, boy.x, 1600 - 25)
+        boy.timer -= 1
         if boy.timer == 0:
             boy.add_event(DASH_TIMER)
 
@@ -146,15 +148,14 @@ class DashState :
 
 
 next_state_table = {
-    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, SLEEP_TIMER : SleepState, SPACE : IdleState},
-    RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, SPACE : RunState, SHIFT_UP : DashState},
-    SleepState: {LEFT_DOWN: RunState, RIGHT_DOWN: RunState, LEFT_UP: RunState, RIGHT_UP: RunState, SPACE: IdleState}
-    DashState : {SHIFT_UP: RunState, SHIFT_DOWN : DashState, DASH_TIMER: RunState, RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState,
+    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, SLEEP_TIMER: SleepState, SPACE: IdleState, SHIFT_DOWN: IdleState, SHIFT_UP: IdleState},
+    RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, SPACE : RunState, SHIFT_DOWN : DashState, SHIFT_UP : RunState},
+    SleepState: {LEFT_DOWN: RunState, RIGHT_DOWN: RunState, LEFT_UP: RunState, RIGHT_UP: RunState, SPACE: IdleState, SHIFT_DOWN: IdleState, SHIFT_UP: IdleState},
+    DashState: {DASH_TIMER: RunState, SHIFT_UP: RunState, SHIFT_DOWN: DashState, RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState,
                 RIGHT_DOWN: IdleState, SPACE: DashState}
 }
 
 class Boy:
-
     def __init__(self):
         self.x, self.y = 1600 // 2, 90
         self.image = load_image('animation_sheet.png')
@@ -166,11 +167,10 @@ class Boy:
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
 
-
     def fire_ball(self):
         print('FIRE BALL')
-
-
+        ball = Ball(self.x, self.y, self.dir*3)
+        game_world.add_object(ball, 1)
 
     def add_event(self, event):
         self.event_que.insert(0, event)
@@ -186,13 +186,8 @@ class Boy:
     def draw(self):
         self.cur_state.draw(self)
 
-
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]
             self.add_event(key_event)
-
-    def fire_ball(self) :
-        ball = Ball(self.x, self.y, self.dir*3)
-        game_world.add_object(ball, 1)
 
