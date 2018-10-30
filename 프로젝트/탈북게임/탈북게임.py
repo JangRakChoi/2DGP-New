@@ -91,6 +91,8 @@ class ItemSlot :
         self.image = load_image("ItemSlot.png")
     def draw(self) :
         self.image.draw(200, 30)
+    def update(self):
+        pass
 
 
 running = True
