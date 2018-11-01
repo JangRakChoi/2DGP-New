@@ -7,6 +7,7 @@ from pico2d import *
 import game_framework
 
 from Player import Player
+from Player import Player
 from Map3 import Map
 from Enemy import Enemy
 

@@ -10,15 +10,18 @@ RUN_SPEED_KMPH = 20.0
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_KMPH * PIXEL_PER_METER)
-DEGREE_PER_TIME = 3.141592
-ROTATE_PER_TIME = PIXEL_PER_METER * 3
+
+WALK_SPEED_KMPH = 5.0
+WALK_SPEED_MPM = (WALK_SPEED_KMPH * 1000.0 / 60.0)
+WALK_SPEED_MPS = (WALK_SPEED_MPM / 60.0)
+WALK_SPEED_PPS = (WALK_SPEED_KMPH * PIXEL_PER_METER)
 
 # Action Speed
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
-RIGHT_DOWN, LEFT_DOWN, UP_DOWN, DOWN_DOWN, RIGHT_UP, LEFT_UP, UP_UP, DOWN_UP = range(8)
+RIGHT_DOWN, LEFT_DOWN, UP_DOWN, DOWN_DOWN, RIGHT_UP, LEFT_UP, UP_UP, DOWN_UP ,SHIFT_UP, SHIFT_DOWN, SHIFT_TIMER = range(11)
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_RIGHT): RIGHT_DOWN,
@@ -29,27 +32,29 @@ key_event_table = {
     (SDL_KEYUP, SDLK_LEFT): LEFT_UP,
     (SDL_KEYUP, SDLK_UP): UP_UP,
     (SDL_KEYUP, SDLK_DOWN): DOWN_UP,
+    (SDL_KEYDOWN, SDLK_LSHIFT): SHIFT_DOWN,
+    (SDL_KEYUP, SDLK_LSHIFT): SHIFT_UP
 }
 
 class IdleState:
     @staticmethod
     def enter(boy, event):
         if event == RIGHT_DOWN:
-            boy.velocityRL += RUN_SPEED_PPS
+            boy.velocityRL += WALK_SPEED_PPS
         elif event == LEFT_DOWN:
-            boy.velocityRL -= RUN_SPEED_PPS
+            boy.velocityRL -= WALK_SPEED_PPS
         elif event == RIGHT_UP:
-            boy.velocityRL -= RUN_SPEED_PPS
+            boy.velocityRL -= WALK_SPEED_PPS
         elif event == LEFT_UP:
-            boy.velocityRL += RUN_SPEED_PPS
+            boy.velocityRL += WALK_SPEED_PPS
         elif event == UP_DOWN:
-            boy.velocityUD += RUN_SPEED_PPS
+            boy.velocityUD += WALK_SPEED_PPS
         elif event == UP_UP:
-            boy.velocityUD -= RUN_SPEED_PPS
+            boy.velocityUD -= WALK_SPEED_PPS
         elif event == DOWN_UP:
-            boy.velocityUD += RUN_SPEED_PPS
+            boy.velocityUD += WALK_SPEED_PPS
         elif event == DOWN_DOWN:
-            boy.velocityUD -= RUN_SPEED_PPS
+            boy.velocityUD -= WALK_SPEED_PPS
         boy.dir = clamp(-1, boy.velocityRL, 1)
         boy.dir = clamp(-1, boy.velocityUD, 1)
 
@@ -68,35 +73,32 @@ class IdleState:
 
     @staticmethod
     def draw(boy):
-        if boy.dir == 1:
-            boy.image.clip_draw(int(boy.frame) * 100, 300, 100, 100, boy.x, boy.y)
+        if boy.dirx == 1 or boy.diry == 1:
+            boy.image.clip_draw(int(boy.frame) * 125, 300, 125, 100, boy.x, boy.y)
         else:
-            boy.image.clip_draw(int(boy.frame) * 100, 200, 100, 100, boy.x, boy.y)
+            boy.image.clip_draw(int(boy.frame) * 125, 200, 125, 100, boy.x, boy.y)
 
-
-class RunState:
-
+class WalkState :
     @staticmethod
     def enter(boy, event):
         if event == RIGHT_DOWN:
-            boy.velocityRL += RUN_SPEED_PPS
+            boy.velocityRL += WALK_SPEED_PPS
         elif event == LEFT_DOWN:
-            boy.velocityRL -= RUN_SPEED_PPS
+            boy.velocityRL -= WALK_SPEED_PPS
         elif event == RIGHT_UP:
-            boy.velocityRL -= RUN_SPEED_PPS
+            boy.velocityRL -= WALK_SPEED_PPS
         elif event == LEFT_UP:
-            boy.velocityRL += RUN_SPEED_PPS
+            boy.velocityRL += WALK_SPEED_PPS
         elif event == UP_DOWN:
-            boy.velocityUD += RUN_SPEED_PPS
+            boy.velocityUD += WALK_SPEED_PPS
         elif event == UP_UP:
-            boy.velocityUD -= RUN_SPEED_PPS
+            boy.velocityUD -= WALK_SPEED_PPS
         elif event == DOWN_UP:
-            boy.velocityUD += RUN_SPEED_PPS
+            boy.velocityUD += WALK_SPEED_PPS
         elif event == DOWN_DOWN:
-            boy.velocityUD -= RUN_SPEED_PPS
+            boy.velocityUD -= WALK_SPEED_PPS
         boy.dirx = clamp(-1, boy.velocityRL, 1)
         boy.diry = clamp(-1, boy.velocityUD, 1)
-
 
     @staticmethod
     def exit(boy, event):
@@ -112,20 +114,70 @@ class RunState:
 
     @staticmethod
     def draw(boy):
-        if boy.dirx == 1:
-            boy.image.clip_draw(int(boy.frame) * 100, 100, 100, 100, boy.x, boy.y)
+        if boy.dirx == 1 or boy.diry == 1:
+            boy.image.clip_draw(int(boy.frame) * 125, 100, 125, 100, boy.x, boy.y)
         else:
-            boy.image.clip_draw(int(boy.frame) * 100, 0, 100, 100, boy.x, boy.y)
+            boy.image.clip_draw(int(boy.frame) * 125, 0, 125, 100, boy.x, boy.y)
+
+
+class RunState:
+
+    @staticmethod
+    def enter(boy, event):
+        if event == RIGHT_DOWN:
+            boy.velocityRL += WALK_SPEED_PPS
+        elif event == LEFT_DOWN:
+            boy.velocityRL -= WALK_SPEED_PPS
+        elif event == RIGHT_UP:
+            boy.velocityRL -= WALK_SPEED_PPS
+        elif event == LEFT_UP:
+            boy.velocityRL += WALK_SPEED_PPS
+        elif event == UP_DOWN:
+            boy.velocityUD += WALK_SPEED_PPS
+        elif event == UP_UP:
+            boy.velocityUD -= WALK_SPEED_PPS
+        elif event == DOWN_UP:
+            boy.velocityUD += WALK_SPEED_PPS
+        elif event == DOWN_DOWN:
+            boy.velocityUD -= WALK_SPEED_PPS
+        boy.dirx = clamp(-1, boy.velocityRL, 1)
+        boy.diry = clamp(-1, boy.velocityUD, 1)
+        boy.timer = 100
+
+    @staticmethod
+    def exit(boy, event):
+        pass
+
+    @staticmethod
+    def do(boy):
+        boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        boy.x += boy.velocityRL * game_framework.frame_time
+        boy.y += boy.velocityUD * game_framework.frame_time
+        boy.x = clamp(25, boy.x, 1280 - 25)
+        boy.y = clamp(25, boy.y, 1024 - 25)
+        boy.timer -= 1
+        if boy.timer == 0:
+            boy.add_event(SHIFT_TIMER)
+
+    @staticmethod
+    def draw(boy):
+        if boy.dirx == 1 or boy.diry == 1 :
+            boy.image.clip_draw(int(boy.frame) * 125, 100, 125, 100, boy.x, boy.y)
+        else:
+            boy.image.clip_draw(int(boy.frame) * 125, 0, 125, 100, boy.x, boy.y)
 
 next_state_table = {
-    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, UP_DOWN: RunState, DOWN_DOWN: RunState, UP_UP: RunState, DOWN_UP: RunState },
-    RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, UP_DOWN: IdleState, DOWN_DOWN: IdleState, UP_UP: IdleState, DOWN_UP: IdleState},
+    IdleState: {RIGHT_UP: WalkState, LEFT_UP: WalkState, RIGHT_DOWN: WalkState, LEFT_DOWN: WalkState, UP_DOWN: WalkState, DOWN_DOWN: WalkState, UP_UP: WalkState, DOWN_UP: WalkState, SHIFT_DOWN: IdleState, SHIFT_UP: IdleState },
+    RunState: {SHIFT_TIMER: WalkState, SHIFT_UP: WalkState, SHIFT_DOWN: RunState, RIGHT_UP: IdleState, LEFT_UP: IdleState,
+                RIGHT_DOWN: IdleState, LEFT_DOWN: IdleState, UP_DOWN: IdleState, DOWN_DOWN: IdleState, UP_UP: IdleState, DOWN_UP: IdleState },
+    WalkState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, UP_DOWN: IdleState, DOWN_DOWN: IdleState,
+                UP_UP: IdleState, DOWN_UP: IdleState, SHIFT_DOWN : RunState, SHIFT_UP : WalkState},
 }
 
 class Player:
     def __init__(self) :
-        self.image = load_image("player.png")
-        self.x, self.y = 0, 300
+        self.image = load_image("animation_sheet.png")
+        self.x, self.y = 100, 300
         self.frame = 0
         self.hp = 100
         self.velocityRL = 0
@@ -135,6 +187,7 @@ class Player:
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
+        self.time = 0
 
     def draw(self) :
         self.cur_state.draw(self)

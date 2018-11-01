@@ -33,9 +33,9 @@ class Enemy:
 
     def draw(self) :
         if (self.nowX > self.x) :
-            self.image.clip_draw(self.frame * 133, 100, 133, 100, self.x, self.y)
+            self.image.clip_draw(self.frame * 103, 100, 103, 103, self.x, self.y)
         elif (self.nowX <= self.x):
-            self.image.clip_draw(self.frame * 133, 0, 133, 100, self.x, self.y)
+            self.image.clip_draw(self.frame * 103, 0, 103, 103, self.x, self.y)
 
     def get_bb(self) :
         return self.x - 50, self.y - 50, self.x + 50, self.y + 50
