@@ -25,7 +25,7 @@ xPos = [random.randint(900, 1280 - 100) for n1 in range(20)]
 yPos = [random.randint(0, 1024 - 100) for n2 in range(20)]
 
 
-class Enemy:
+class Enemy :
     def __init__(self) :
         self.image = load_image("enemy.png")
         # soldier pivot : 50X50

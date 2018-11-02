@@ -8,8 +8,9 @@ import game_world
 import FailState
 
 from Player import Player
-from Map3 import Map
 from Enemy import Enemy
+from Map3 import Map
+from ItemSlot import ItemSlot
 
 name = "MainState"
 
@@ -17,13 +18,15 @@ player = None
 enemy = None
 
 def enter():
-    global player
+    global player, enemy
     player = Player()
     map = Map()
     enemy = Enemy()
+    itemslot = ItemSlot()
     game_world.add_object(map, 0)
     game_world.add_object(player, 1)
     game_world.add_object(enemy, 1)
+    game_world.add_object(itemslot, 1)
 
 
 def exit():
@@ -50,18 +53,6 @@ def handle_events():
             player.handle_event(event)
 
 
-def update():
-    for game_object in game_world.all_objects():
-        game_object.update()
-    if collide(player, enemy):
-        player.hp -= 10
-
-def draw():
-    clear_canvas()
-    for game_object in game_world.all_objects():
-        game_object.draw()
-    update_canvas()
-
 def collide(a, b) :
     left_a, bottom_a, right_a, top_a = a.get_bb()
     left_b, bottom_b, right_b, top_b = b.get_bb()
@@ -71,7 +62,26 @@ def collide(a, b) :
     if top_a < bottom_b : return False
     if bottom_a > top_b : return False
 
+    if a.x < b.x : a.where_collide = 1
+    elif a.y < b.y : a.where_collide = 2
+    elif a.x > b.x : a.where_collide = 3
+    elif a.y > b.y : a.where_collide = 4
+
     return True
+
+def update():
+    for game_object in game_world.all_objects():
+        game_object.update()
+    if collide(player, enemy) :
+        player.collide()
+        print("Collision")
+
+def draw():
+    clear_canvas()
+    for game_object in game_world.all_objects():
+        game_object.draw()
+    update_canvas()
+
 
 
 

@@ -188,6 +188,7 @@ class Player:
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
         self.time = 0
+        self.where_collide = 0
 
     def draw(self) :
         self.cur_state.draw(self)
@@ -210,3 +211,14 @@ class Player:
 
     def get_bb(self) :
         return self.x - 50, self.y - 50, self.x + 50, self.y + 50
+
+    def collide(self) :
+        self.hp -= 10
+        if self.where_collide == 1 :
+            self.x -= 30
+        elif self.where_collide == 2 :
+            self.y -= 30
+        elif self.where_collide == 3 :
+            self.x += 30
+        elif self.where_collide == 4 :
+            self.y += 30
