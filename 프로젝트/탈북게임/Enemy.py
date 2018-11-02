@@ -24,7 +24,6 @@ FRAMES_PER_ACTION = 8
 xPos = [random.randint(900, 1280 - 100) for n1 in range(20)]
 yPos = [random.randint(0, 1024 - 100) for n2 in range(20)]
 
-
 class Enemy :
     def __init__(self) :
         self.image = load_image("enemy.png")
@@ -60,3 +59,7 @@ class Enemy :
 
     def get_bb(self) :
         return self.x - 50, self.y - 50, self.x + 50, self.y + 50
+
+
+    def collide_each(self) :
+        self.n += 1

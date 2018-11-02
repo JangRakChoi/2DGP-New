@@ -3,7 +3,6 @@ import json
 import os
 
 from pico2d import *
-import main_state_2
 import game_framework
 import game_world
 import FailState
@@ -11,7 +10,7 @@ import Player
 
 from Player import Player
 from Enemy import Enemy
-from Map3 import Map
+from Map2 import Map
 from ItemSlot import ItemSlot
 from Tree import Tree
 
@@ -29,10 +28,10 @@ def enter():
     global player, enemys, trees, x, y, map
     player = Player()
     map = Map()
-    enemys = [Enemy() for n in range(4)]
+    enemys = [Enemy() for n in range(6)]
     itemslot = ItemSlot()
-    trees = [Tree() for n in range(20)]
-    game_world.add_object(map, 0)
+    trees = [Tree() for n in range(23)]
+    game_world.add_object(map, 1)
     for enemy in enemys :
         game_world.add_object(enemy, 1)
     game_world.add_object(player, 1)
@@ -40,26 +39,24 @@ def enter():
         game_world.add_object(tree, 1)
     game_world.add_object(itemslot, 1)
 
-def exit():
 
-    game_framework.run(main_state_2)
+def exit():
+    game_world.clear()
 
 def pause():
     pass
 
-
 def resume():
     pass
-
 
 def handle_events():
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
-        elif player.x > 1280 - 50 :
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
-        elif ((event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE) or player.hp < 0):
+        elif player.hp < 0 :
             game_framework.run(FailState)
         else:
             player.handle_event(event)

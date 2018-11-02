@@ -110,7 +110,7 @@ class WalkState :
         boy.x += boy.velocityRL * game_framework.frame_time
         boy.y += boy.velocityUD * game_framework.frame_time
         boy.x = clamp(25, boy.x, 1280 - 25)
-        boy.y = clamp(25, boy.y, 1024 - 25)
+        boy.y = clamp(25, boy.y, 1000 - 25)
 
     @staticmethod
     def draw(boy):
@@ -154,7 +154,7 @@ class RunState:
         boy.x += boy.velocityRL * game_framework.frame_time
         boy.y += boy.velocityUD * game_framework.frame_time
         boy.x = clamp(25, boy.x, 1280 - 25)
-        boy.y = clamp(25, boy.y, 1024 - 25)
+        boy.y = clamp(25, boy.y, 1000 - 25)
         boy.timer -= 1
         if boy.timer == 0:
             boy.add_event(SHIFT_TIMER)
@@ -210,15 +210,25 @@ class Player:
             self.add_event(key_event)
 
     def get_bb(self) :
-        return self.x - 50, self.y - 50, self.x + 50, self.y + 50
+        return self.x - 25, self.y - 50, self.x + 25, self.y + 50
 
-    def collide(self) :
+    def collide_enemy(self) :
         self.hp -= 10
         if self.where_collide == 1 :
-            self.x -= 30
-        elif self.where_collide == 2 :
-            self.y -= 30
-        elif self.where_collide == 3 :
-            self.x += 30
-        elif self.where_collide == 4 :
-            self.y += 30
+            self.x -= 20
+        if self.where_collide == 2 :
+            self.y -= 20
+        if self.where_collide == 3 :
+            self.x += 20
+        if self.where_collide == 4 :
+            self.y += 20
+
+    def collide_tree(self) :
+        if self.where_collide == 1 :
+            self.x -= 10
+        if self.where_collide == 2 :
+            self.y -= 10
+        if self.where_collide == 3 :
+            self.x += 10
+        if self.where_collide == 4 :
+            self.y += 10
