@@ -12,7 +12,7 @@ import main_state
 
 from Bush2 import Bush
 from Player import Player
-from enemy1 import Enemy1
+from enemy2 import Enemy2
 from Map2 import Map
 from ItemSlot import ItemSlot
 from Tree2 import Tree
@@ -35,9 +35,9 @@ def enter():
     game_world.objects = [[], [], []]
     player = Player()
     map = Map()
-    enemys = [Enemy1() for n in range(4)]
+    enemys = [Enemy2() for n in range(4)]
     itemslot = ItemSlot()
-    trees = [Tree() for n in range(20)]
+    trees = [Tree() for n in range(23)]
     bushes = [Bush() for n in range(4)]
 
     for enemy in enemys :
@@ -49,6 +49,8 @@ def enter():
         game_world.add_object(bush, 1)
     game_world.add_object(itemslot, 1)
     game_world.add_object(map, 0)
+
+    player.hp = main_state.hp
 
 
 def exit():

@@ -98,8 +98,8 @@ class WalkState :
             boy.velocityUD += WALK_SPEED_PPS
         elif event == DOWN_DOWN:
             boy.velocityUD -= WALK_SPEED_PPS
-        boy.dirx = clamp(-1, boy.dirx, 1)
-        boy.diry = clamp(-1, boy.diry, 1)
+        boy.dirx = clamp(-1, boy.velocityRL, 1)
+        boy.diry = clamp(-1, boy.velocityUD, 1)
 
     @staticmethod
     def exit(boy, event):
@@ -144,7 +144,6 @@ class RunState:
             boy.velocityUD -= WALK_SPEED_PPS
         boy.dirx = clamp(-1, boy.velocityRL, 1)
         boy.diry = clamp(-1, boy.velocityUD, 1)
-        boy.timer = 100
 
     @staticmethod
     def exit(boy, event):
@@ -157,16 +156,14 @@ class RunState:
         boy.y += boy.velocityUD * game_framework.frame_time
         boy.x = clamp(25, boy.x, 1280 - 25)
         boy.y = clamp(25, boy.y, 1000 - 25)
-        boy.timer -= 1
-        if boy.timer == 0:
-            boy.add_event(SHIFT_TIMER)
 
     @staticmethod
     def draw(boy):
-        if boy.dirx == 1 or boy.diry == 1 :
-            boy.image.clip_draw(int(boy.frame) * 125, 100, 125, 100, boy.x, boy.y)
-        else:
-            boy.image.clip_draw(int(boy.frame) * 125, 0, 125, 100, boy.x, boy.y)
+        if boy.hide == False :
+            if boy.dirx == 1 or boy.diry == 1 :
+                boy.image.clip_draw(int(boy.frame) * 125, 100, 125, 100, boy.x, boy.y)
+            else:
+                boy.image.clip_draw(int(boy.frame) * 125, 0, 125, 100, boy.x, boy.y)
 
 next_state_table = {
     IdleState: {RIGHT_UP: WalkState, LEFT_UP: WalkState, RIGHT_DOWN: WalkState, LEFT_DOWN: WalkState, UP_DOWN: WalkState, DOWN_DOWN: WalkState, UP_UP: WalkState, DOWN_UP: WalkState, SHIFT_DOWN: IdleState, SHIFT_UP: IdleState },

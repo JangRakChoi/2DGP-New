@@ -29,6 +29,7 @@ x = 640
 y = 500
 TreeCount = 0
 BushCount = 0
+hp = 0
 
 def enter():
     global player, enemys, trees, x, y, map, itemslot, bushes
@@ -62,7 +63,7 @@ def resume():
 
 
 def handle_events():
-    global TreeCount, BushCount, player, map
+    global TreeCount, BushCount, player, map, hp
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -76,6 +77,7 @@ def handle_events():
         elif player.x > 1280 - 50 :
             TreeCount = 0
             BushCount = 0
+            hp = player.hp
             game_framework.change_state(main_state_2)
         elif map.timer > 60.0 :
             game_framework.run(FailState)
