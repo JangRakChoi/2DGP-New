@@ -10,6 +10,7 @@ import Player
 import SuccessState
 import main_state
 
+from Bush2 import Bush
 from Player import Player
 from enemy1 import Enemy1
 from Map2 import Map
@@ -22,6 +23,7 @@ player = None
 enemys = None
 trees = None
 map = None
+bushes = None
 
 x = 640
 y = 500
@@ -29,18 +31,22 @@ TreeCount = 0
 BushCount = 0
 
 def enter():
-    global player, enemys, trees, x, y, map, itemslot
+    global player, enemys, trees, x, y, map, itemslot, bushes
     game_world.objects = [[], [], []]
     player = Player()
     map = Map()
     enemys = [Enemy1() for n in range(4)]
     itemslot = ItemSlot()
     trees = [Tree() for n in range(20)]
+    bushes = [Bush() for n in range(4)]
+
     for enemy in enemys :
         game_world.add_object(enemy, 1)
     game_world.add_object(player, 1)
     for tree in trees :
         game_world.add_object(tree, 1)
+    for bush in bushes :
+        game_world.add_object(bush, 1)
     game_world.add_object(itemslot, 1)
     game_world.add_object(map, 0)
 
@@ -72,6 +78,8 @@ def handle_events():
             TreeCount = 0
             BushCount = 0
             game_framework.change_state(main_state)
+        elif map.timer > 120.0 :
+            game_framework.run(FailState)
         else:
             player.handle_event(event)
 
@@ -92,10 +100,8 @@ def collide(a, b) :
 
     return True
 
-n = 0
-
 def update():
-    global n
+    global TreeCount, BushCount
     for game_object in game_world.all_objects():
         game_object.update()
     for enemy in enemys :
@@ -108,7 +114,15 @@ def update():
             player.collide_tree()
             print("Collision with Tree")
 
-    n = 0
+    player.hide = False
+
+    for bush in bushes :
+        if collide(player, bush) :
+            player.hide = True
+            print("player Collision with Bush")
+
+    if player.hp < 0 :
+        game_framework.run(FailState)
 
 def draw():
     clear_canvas()
