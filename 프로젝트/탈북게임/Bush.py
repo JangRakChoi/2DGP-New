@@ -2,8 +2,8 @@ from pico2d import *
 import random
 import main_state
 
-xPos = [400, 1100, 630]
-yPos = [550, 680, 770]
+xPos = [400, 1100, 730]
+yPos = [550, 680, 670]
 
 class Bush :
     image = None

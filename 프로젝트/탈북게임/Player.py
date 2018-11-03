@@ -142,8 +142,8 @@ class RunState:
             boy.velocityUD += WALK_SPEED_PPS
         elif event == DOWN_DOWN:
             boy.velocityUD -= WALK_SPEED_PPS
-        boy.dirx = clamp(-1, boy.dirx, 1)
-        boy.diry = clamp(-1, boy.diry, 1)
+        boy.dirx = clamp(-1, boy.velocityRL, 1)
+        boy.diry = clamp(-1, boy.velocityUD, 1)
         boy.timer = 100
 
     @staticmethod
@@ -190,11 +190,13 @@ class Player:
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
         self.time = 0
-        self.where_collide = 0
+        self.where_collide = -1
         self.hide = False
+        self.font = load_font('ENCR10B.TTF', 16)
 
     def draw(self) :
         self.cur_state.draw(self)
+        self.font.draw(self.x - 50, self.y + 50, 'HP : %3.2f' % self.hp, (255, 0, 0))
 
     def add_event(self, event):
         self.event_que.insert(0, event)
@@ -235,3 +237,18 @@ class Player:
             self.x += 10
         if self.where_collide == 4 :
             self.y += 10
+
+    def init(self) :
+        self.x, self.y = 100, 300
+        self.frame = 0
+        self.hp = self.hp
+        self.velocityRL = 0
+        self.velocityUD = 0
+        self.dirx = 1
+        self.diry = 1
+        self.event_que = []
+        self.cur_state = IdleState
+        self.cur_state.enter(self, None)
+        self.time = 0
+        self.where_collide = -1
+        self.hide = False

@@ -7,12 +7,14 @@ import game_framework
 import game_world
 import FailState
 import Player
+import SuccessState
+import main_state
 
 from Player import Player
 from enemy1 import Enemy1
 from Map2 import Map
 from ItemSlot import ItemSlot
-from Tree import Tree
+from Tree2 import Tree
 
 name = "MainState"
 
@@ -53,6 +55,7 @@ def resume():
     pass
 
 def handle_events():
+    global map, player, BushCount, TreeCount
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -61,6 +64,14 @@ def handle_events():
             game_framework.quit()
         elif player.hp < 0 :
             game_framework.run(FailState)
+        elif map.timer > 60.0 :
+            game_framework.run(FailState)
+        elif player.x > 1280 - 50 :
+            game_framework.run(SuccessState)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_1 :
+            TreeCount = 0
+            BushCount = 0
+            game_framework.change_state(main_state)
         else:
             player.handle_event(event)
 
@@ -104,17 +115,3 @@ def draw():
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
