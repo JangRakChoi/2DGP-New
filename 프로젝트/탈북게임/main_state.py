@@ -14,6 +14,7 @@ from enemy1 import Enemy1
 from Map3 import Map
 from ItemSlot import ItemSlot
 from Tree import Tree
+from Bush import  Bush
 
 name = "MainState"
 
@@ -22,19 +23,23 @@ enemys = None
 trees = None
 map = None
 itemslot = None
+bush = None
 
 x = 640
 y = 500
-Count = 0
+TreeCount = 0
+BushCount = 0
 
 def enter():
-    global player, enemys, trees, x, y, map, itemslot
+    global player, enemys, trees, x, y, map, itemslot, bush
     game_world.objects = [[], [], []]
     player = Player()
     map = Map()
     enemys = [Enemy1() for n in range(2)]
     itemslot = ItemSlot()
+    bush = Bush()
     trees = [Tree() for n in range(20)]
+
     for enemy in enemys :
         game_world.add_object(enemy, 1)
     game_world.add_object(player, 1)
@@ -42,6 +47,7 @@ def enter():
         game_world.add_object(tree, 1)
     game_world.add_object(itemslot, 1)
     game_world.add_object(map, 0)
+    game_world.add_object(bush, 1)
 
 def exit():
     game_world.clear()
@@ -86,7 +92,7 @@ def collide(a, b) :
 n = 0
 
 def update():
-    global n, Count
+    global n, TreeCount, BushCount
     for game_object in game_world.all_objects():
         game_object.update()
     for enemy in enemys :
@@ -100,7 +106,8 @@ def update():
             print("player Collision with Tree")
 
     if player.x > 1280 - 50 :
-        Count = 0
+        TreeCount = 0
+        BushCount = 0
         game_framework.change_state(main_state_2)
 
     if player.hp < 0 :

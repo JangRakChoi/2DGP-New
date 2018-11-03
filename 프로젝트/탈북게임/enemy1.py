@@ -46,9 +46,9 @@ class IdleState:
     @staticmethod
     def draw(boy):
         if (boy.nowX > boy.x) :
-            boy.image.clip_draw(int(boy.frame) * 76, 300, 76, 98, boy.x, boy.y)
+            boy.image.clip_draw(int(boy.frame) * 77, 300, 78, 98, boy.x, boy.y)
         elif (boy.nowX <= boy.x):
-            boy.image.clip_draw(int(boy.frame) * 76, 200, 76, 98, boy.x, boy.y)
+            boy.image.clip_draw(int(boy.frame) * 77, 200, 78, 98, boy.x, boy.y)
 
 class WalkState:
     @staticmethod

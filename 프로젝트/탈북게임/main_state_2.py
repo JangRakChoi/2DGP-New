@@ -23,6 +23,8 @@ map = None
 
 x = 640
 y = 500
+TreeCount = 0
+BushCount = 0
 
 def enter():
     global player, enemys, trees, x, y, map, itemslot
