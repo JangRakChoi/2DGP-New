@@ -9,7 +9,7 @@ import FailState
 import Player
 
 from Player import Player
-from Enemy import Enemy
+from enemy1 import Enemy1
 from Map2 import Map
 from ItemSlot import ItemSlot
 from Tree import Tree
@@ -25,19 +25,20 @@ x = 640
 y = 500
 
 def enter():
-    global player, enemys, trees, x, y, map
+    global player, enemys, trees, x, y, map, itemslot
+    game_world.objects = [[], [], []]
     player = Player()
     map = Map()
-    enemys = [Enemy() for n in range(6)]
+    enemys = [Enemy1() for n in range(4)]
     itemslot = ItemSlot()
-    trees = [Tree() for n in range(23)]
-    game_world.add_object(map, 1)
+    trees = [Tree() for n in range(20)]
     for enemy in enemys :
         game_world.add_object(enemy, 1)
     game_world.add_object(player, 1)
     for tree in trees :
         game_world.add_object(tree, 1)
     game_world.add_object(itemslot, 1)
+    game_world.add_object(map, 0)
 
 
 def exit():
@@ -88,9 +89,6 @@ def update():
         if collide(player, enemy) :
             player.collide_enemy()
             print("Collision with Enemy")
-    if collide(enemys[n - 1], enemys[n]) :
-        enemys[n].collide_each()
-        n += 1
 
     for tree in trees :
         if collide(player, tree) :

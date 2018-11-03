@@ -10,7 +10,7 @@ import FailState
 import Player
 
 from Player import Player
-from Enemy import Enemy
+from enemy1 import Enemy1
 from Map3 import Map
 from ItemSlot import ItemSlot
 from Tree import Tree
@@ -21,28 +21,30 @@ player = None
 enemys = None
 trees = None
 map = None
+itemslot = None
 
 x = 640
 y = 500
+Count = 0
 
 def enter():
-    global player, enemys, trees, x, y, map
+    global player, enemys, trees, x, y, map, itemslot
+    game_world.objects = [[], [], []]
     player = Player()
     map = Map()
-    enemys = [Enemy() for n in range(4)]
+    enemys = [Enemy1() for n in range(2)]
     itemslot = ItemSlot()
     trees = [Tree() for n in range(20)]
-    game_world.add_object(map, 0)
     for enemy in enemys :
         game_world.add_object(enemy, 1)
     game_world.add_object(player, 1)
     for tree in trees :
         game_world.add_object(tree, 1)
     game_world.add_object(itemslot, 1)
+    game_world.add_object(map, 0)
 
 def exit():
-
-    game_framework.run(main_state_2)
+    game_world.clear()
 
 def pause():
     pass
@@ -57,10 +59,10 @@ def handle_events():
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
-        elif player.x > 1280 - 50 :
-            game_framework.quit()
-        elif ((event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE) or player.hp < 0):
+        elif (event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE) :
             game_framework.run(FailState)
+        elif (event.type == SDL_KEYDOWN and event.key == SDLK_1) :
+            game_framework.change_state(main_state_2)
         else:
             player.handle_event(event)
 
@@ -84,21 +86,25 @@ def collide(a, b) :
 n = 0
 
 def update():
-    global n
+    global n, Count
     for game_object in game_world.all_objects():
         game_object.update()
     for enemy in enemys :
         if collide(player, enemy) :
             player.collide_enemy()
-            print("Collision with Enemy")
-    if collide(enemys[n - 1], enemys[n]) :
-        enemys[n].collide_each()
-        n += 1
+            print("player Collision with Enemy")
 
     for tree in trees :
         if collide(player, tree) :
             player.collide_tree()
-            print("Collision with Tree")
+            print("player Collision with Tree")
+
+    if player.x > 1280 - 50 :
+        Count = 0
+        game_framework.change_state(main_state_2)
+
+    if player.hp < 0 :
+        game_framework.run(FailState)
 
     n = 0
 
