@@ -73,10 +73,11 @@ class IdleState:
 
     @staticmethod
     def draw(boy):
-        if boy.dirx == 1 or boy.diry == 1:
-            boy.image.clip_draw(int(boy.frame) * 125, 300, 125, 100, boy.x, boy.y)
-        else:
-            boy.image.clip_draw(int(boy.frame) * 125, 200, 125, 100, boy.x, boy.y)
+        if boy.hide == False :
+            if boy.dirx == 1 or boy.diry == 1:
+                boy.image.clip_draw(int(boy.frame) * 125, 300, 125, 100, boy.x, boy.y)
+            else:
+                boy.image.clip_draw(int(boy.frame) * 125, 200, 125, 100, boy.x, boy.y)
 
 class WalkState :
     @staticmethod
@@ -97,8 +98,8 @@ class WalkState :
             boy.velocityUD += WALK_SPEED_PPS
         elif event == DOWN_DOWN:
             boy.velocityUD -= WALK_SPEED_PPS
-        boy.dirx = clamp(-1, boy.velocityRL, 1)
-        boy.diry = clamp(-1, boy.velocityUD, 1)
+        boy.dirx = clamp(-1, boy.dirx, 1)
+        boy.diry = clamp(-1, boy.diry, 1)
 
     @staticmethod
     def exit(boy, event):
@@ -114,10 +115,11 @@ class WalkState :
 
     @staticmethod
     def draw(boy):
-        if boy.dirx == 1 or boy.diry == 1:
-            boy.image.clip_draw(int(boy.frame) * 125, 100, 125, 100, boy.x, boy.y)
-        else:
-            boy.image.clip_draw(int(boy.frame) * 125, 0, 125, 100, boy.x, boy.y)
+        if boy.hide == False:
+            if boy.dirx == 1 or boy.diry == 1:
+                boy.image.clip_draw(int(boy.frame) * 125, 100, 125, 100, boy.x, boy.y)
+            else:
+                boy.image.clip_draw(int(boy.frame) * 125, 0, 125, 100, boy.x, boy.y)
 
 
 class RunState:
@@ -140,8 +142,8 @@ class RunState:
             boy.velocityUD += WALK_SPEED_PPS
         elif event == DOWN_DOWN:
             boy.velocityUD -= WALK_SPEED_PPS
-        boy.dirx = clamp(-1, boy.velocityRL, 1)
-        boy.diry = clamp(-1, boy.velocityUD, 1)
+        boy.dirx = clamp(-1, boy.dirx, 1)
+        boy.diry = clamp(-1, boy.diry, 1)
         boy.timer = 100
 
     @staticmethod
@@ -189,6 +191,7 @@ class Player:
         self.cur_state.enter(self, None)
         self.time = 0
         self.where_collide = 0
+        self.hide = False
 
     def draw(self) :
         self.cur_state.draw(self)
