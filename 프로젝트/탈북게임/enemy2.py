@@ -39,7 +39,7 @@ class IdleState:
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
         boy.timer += get_time() - boy.cur_time
         boy.cur_time = get_time()
-        if boy.timer >= 5 :
+        if boy.timer >= 3 :
            boy.cur_state = WalkState
            boy.timer = 0
 

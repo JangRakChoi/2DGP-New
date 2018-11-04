@@ -73,6 +73,7 @@ def handle_events():
         elif (event.type == SDL_KEYDOWN and event.key == SDLK_2) :
             TreeCount = 0
             BushCount = 0
+            hp = player.hp
             game_framework.change_state(main_state_2)
         elif player.x > 1280 - 50 :
             TreeCount = 0

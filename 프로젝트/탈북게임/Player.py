@@ -58,10 +58,6 @@ class IdleState:
         boy.dir = clamp(-1, boy.velocityRL, 1)
         boy.dir = clamp(-1, boy.velocityUD, 1)
 
-        boy.timer = get_time()
-        boy.cur_time = get_time()
-        boy.sleep_timer = boy.timer + 10.0
-
     @staticmethod
     def exit(boy, event):
         pass
@@ -69,11 +65,19 @@ class IdleState:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
-        boy.timer = get_time()
+        boy.timer += get_time() - boy.cur_time
+        boy.cur_time = get_time()
+        if boy.collideWithEnemy == True :
+            if boy.timer >= 3:
+                boy.collideWithEnemy = False
+                boy.image.opacify(1)
+                boy.timer = 0
 
     @staticmethod
     def draw(boy):
         if boy.hide == False :
+            if boy.collideWithEnemy == True:
+                boy.image.opacify(random.randint(1, 100) * 0.01)
             if boy.dirx == 1 or boy.diry == 1:
                 boy.image.clip_draw(int(boy.frame) * 125, 300, 125, 100, boy.x, boy.y)
             else:
@@ -112,10 +116,19 @@ class WalkState :
         boy.y += boy.velocityUD * game_framework.frame_time
         boy.x = clamp(25, boy.x, 1280 - 25)
         boy.y = clamp(25, boy.y, 1000 - 25)
+        boy.timer += get_time() - boy.cur_time
+        boy.cur_time = get_time()
+        if boy.collideWithEnemy == True :
+            if boy.timer >= 3:
+                boy.collideWithEnemy = False
+                boy.image.opacify(1)
+                boy.timer = 0
 
     @staticmethod
     def draw(boy):
         if boy.hide == False:
+            if boy.collideWithEnemy == True:
+                boy.image.opacify(random.randint(1, 100) * 0.01)
             if boy.dirx == 1 or boy.diry == 1:
                 boy.image.clip_draw(int(boy.frame) * 125, 100, 125, 100, boy.x, boy.y)
             else:
@@ -156,10 +169,20 @@ class RunState:
         boy.y += boy.velocityUD * game_framework.frame_time
         boy.x = clamp(25, boy.x, 1280 - 25)
         boy.y = clamp(25, boy.y, 1000 - 25)
+        boy.timer += get_time() - boy.cur_time
+        boy.cur_time = get_time()
+        if boy.collideWithEnemy == True :
+            if boy.timer >= 3:
+                boy.collideWithEnemy = False
+                boy.image.opacify(1)
+                boy.timer = 0
 
     @staticmethod
     def draw(boy):
+        boy.image.opacity(1)
         if boy.hide == False :
+            if boy.collideWithEnemy == True :
+                boy.image.opacify(random.randint(1, 100) * 0.01)
             if boy.dirx == 1 or boy.diry == 1 :
                 boy.image.clip_draw(int(boy.frame) * 125, 100, 125, 100, boy.x, boy.y)
             else:
@@ -186,10 +209,12 @@ class Player:
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
-        self.time = 0
+        self.timer = 0
+        self.cur_time = 0
         self.where_collide = -1
         self.hide = False
         self.font = load_font('ENCR10B.TTF', 16)
+        self.collideWithEnemy = False
 
     def draw(self) :
         self.cur_state.draw(self)
@@ -215,7 +240,9 @@ class Player:
         return self.x - 25, self.y - 50, self.x + 25, self.y + 50
 
     def collide_enemy(self) :
-        self.hp -= 10
+        if self.collideWithEnemy == False :
+            self.hp -= 10
+            self.collideWithEnemy = True
         if self.where_collide == 1 :
             self.x -= 20
         if self.where_collide == 2 :
@@ -238,7 +265,6 @@ class Player:
     def init(self) :
         self.x, self.y = 100, 300
         self.frame = 0
-        self.hp = self.hp
         self.velocityRL = 0
         self.velocityUD = 0
         self.dirx = 1
@@ -246,6 +272,7 @@ class Player:
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
-        self.time = 0
+        self.timer = 0
+        self.cur_time = 0
         self.where_collide = -1
         self.hide = False
