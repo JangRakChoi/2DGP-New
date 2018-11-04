@@ -114,7 +114,7 @@ def update():
 
     for tree in trees :
         if collide(player, tree) :
-            player.collide_tree()
+            player.collide_obj()
             print("player Collision with Tree")
 
     player.hide = False

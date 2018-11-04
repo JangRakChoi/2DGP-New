@@ -16,6 +16,7 @@ from enemy2 import Enemy2
 from Map2 import Map
 from ItemSlot import ItemSlot
 from Tree2 import Tree
+from Box import Box
 
 name = "MainState"
 
@@ -24,14 +25,16 @@ enemys = None
 trees = None
 map = None
 bushes = None
+boxes = None
 
 x = 640
 y = 500
 TreeCount = 0
 BushCount = 0
+BoxCount = 0
 
 def enter():
-    global player, enemys, trees, x, y, map, itemslot, bushes
+    global player, enemys, trees, x, y, map, itemslot, bushes, boxes
     game_world.objects = [[], [], []]
     player = Player()
     map = Map()
@@ -39,6 +42,7 @@ def enter():
     itemslot = ItemSlot()
     trees = [Tree() for n in range(23)]
     bushes = [Bush() for n in range(4)]
+    boxes = [Box() for n in range(5)]
 
     for enemy in enemys :
         game_world.add_object(enemy, 1)
@@ -47,6 +51,8 @@ def enter():
         game_world.add_object(tree, 1)
     for bush in bushes :
         game_world.add_object(bush, 1)
+    for box in boxes :
+        game_world.add_object(box, 1)
     game_world.add_object(itemslot, 1)
     game_world.add_object(map, 0)
 
@@ -63,7 +69,7 @@ def resume():
     pass
 
 def handle_events():
-    global map, player, BushCount, TreeCount
+    global map, player, BushCount, TreeCount, BoxCount
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -79,6 +85,7 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_1 :
             TreeCount = 0
             BushCount = 0
+            BoxCount = 0
             game_framework.change_state(main_state)
         elif map.timer > 120.0 :
             game_framework.run(FailState)
@@ -103,7 +110,7 @@ def collide(a, b) :
     return True
 
 def update():
-    global TreeCount, BushCount
+    global TreeCount, BushCount, BoxCount
     for game_object in game_world.all_objects():
         game_object.update()
     for enemy in enemys :
@@ -113,7 +120,7 @@ def update():
 
     for tree in trees :
         if collide(player, tree) :
-            player.collide_tree()
+            player.collide_obj()
             print("Collision with Tree")
 
     player.hide = False
@@ -122,6 +129,11 @@ def update():
         if collide(player, bush) :
             player.hide = True
             print("player Collision with Bush")
+
+    for box in boxes :
+        if collide(player, box) :
+            player.collide_obj()
+            print("Collision with Tree")
 
     if player.hp < 0 :
         game_framework.run(FailState)

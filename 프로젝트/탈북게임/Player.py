@@ -252,7 +252,7 @@ class Player:
         if self.where_collide == 4 :
             self.y += 20
 
-    def collide_tree(self) :
+    def collide_obj(self) :
         if self.where_collide == 1 :
             self.x -= 10
         if self.where_collide == 2 :

@@ -3,7 +3,7 @@ import random
 import main_state_2
 
 xPos = [400, 1100, 730, 770]
-yPos = [150, 390, 670, 220]
+yPos = [150, 390, 700, 220]
 
 class Bush :
     image = None
