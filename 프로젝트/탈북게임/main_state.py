@@ -7,9 +7,9 @@ import main_state_2
 import game_framework
 import game_world
 import FailState
-import Player
+import player_newimage
 
-from Player import Player
+from player_newimage import Player
 from enemy1 import Enemy1
 from Map3 import Map
 from ItemSlot import ItemSlot

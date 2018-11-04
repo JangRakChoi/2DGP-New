@@ -6,12 +6,12 @@ from pico2d import *
 import game_framework
 import game_world
 import FailState
-import Player
+import player_newimage
 import SuccessState
 import main_state
 
 from Bush2 import Bush
-from Player import Player
+from player_newimage import Player
 from enemy2 import Enemy2
 from Map2 import Map
 from ItemSlot import ItemSlot
