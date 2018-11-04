@@ -129,7 +129,7 @@ class WalkState :
         if boy.hide == False:
             if boy.collideWithEnemy == True:
                 boy.image.opacify(random.randint(1, 100) * 0.01)
-            if boy.dirx == 1 or boy.diry == 1:
+            if boy.dirx == 1 :
                 boy.image.clip_draw(int(boy.frame) * 125, 100, 125, 100, boy.x, boy.y)
             else:
                 boy.image.clip_draw(int(boy.frame) * 125, 0, 125, 100, boy.x, boy.y)
@@ -183,7 +183,7 @@ class RunState:
         if boy.hide == False :
             if boy.collideWithEnemy == True :
                 boy.image.opacify(random.randint(1, 100) * 0.01)
-            if boy.dirx == 1 or boy.diry == 1 :
+            if boy.dirx == 1 :
                 boy.image.clip_draw(int(boy.frame) * 125, 100, 125, 100, boy.x, boy.y)
             else:
                 boy.image.clip_draw(int(boy.frame) * 125, 0, 125, 100, boy.x, boy.y)
