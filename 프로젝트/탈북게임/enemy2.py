@@ -123,9 +123,10 @@ class Enemy2 :
 
     def draw(self) :
         self.cur_state.draw(self)
+        draw_rectangle(*self.get_bb())
 
     def get_bb(self) :
-        return self.x - 50, self.y - 50, self.x + 50, self.y + 50
+        return self.x - 40, self.y - 50, self.x + 40, self.y + 50
 
     def add_event(self, event):
         self.event_que.insert(0, event)

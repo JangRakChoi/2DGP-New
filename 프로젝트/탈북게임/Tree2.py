@@ -15,10 +15,11 @@ class Tree :
         main_state_2.TreeCount += 1
 
     def draw(self) :
-            self.image.clip_draw(self.frame * 97, 0, 97, 154, self.x, self.y)
+        self.image.clip_draw(self.frame * 97, 0, 97, 154, self.x, self.y)
+        draw_rectangle(*self.get_bb())
 
     def update(self):
         pass
 
     def get_bb(self) :
-        return self.x - 20, self.y - 30 , self.x + 20, self.y - 10
+        return self.x - 20, self.y - 70 , self.x + 20, self.y - 10

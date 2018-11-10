@@ -16,9 +16,10 @@ class Bush :
 
     def draw(self) :
         self.image.clip_draw(0, 0, 120, 120, self.x, self.y)
+        draw_rectangle(*self.get_bb())
 
     def update(self):
         pass
 
     def get_bb(self) :
-        return self.x - 20, self.y - 20 , self.x + 20, self.y + 20
+        return self.x - 30, self.y - 30 , self.x + 30, self.y + 30

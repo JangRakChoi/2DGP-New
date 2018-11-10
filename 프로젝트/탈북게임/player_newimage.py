@@ -219,6 +219,7 @@ class Player:
     def draw(self) :
         self.cur_state.draw(self)
         self.font.draw(self.x - 50, self.y + 50, 'HP : %3.2f' % self.hp, (255, 0, 0))
+        draw_rectangle(*self.get_bb())
 
     def add_event(self, event):
         self.event_que.insert(0, event)

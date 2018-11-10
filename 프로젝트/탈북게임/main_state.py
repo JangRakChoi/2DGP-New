@@ -15,6 +15,7 @@ from Map3 import Map
 from ItemSlot import ItemSlot
 from Tree import Tree
 from Bush import  Bush
+from Banana import Banana
 
 name = "MainState"
 
@@ -24,15 +25,17 @@ trees = None
 map = None
 itemslot = None
 bushes = None
+banana = None
 
 x = 640
 y = 500
 TreeCount = 0
 BushCount = 0
+BananaCount = 0
 hp = 0
 
 def enter():
-    global player, enemys, trees, x, y, map, itemslot, bushes
+    global player, enemys, trees, x, y, map, itemslot, bushes, bananas
     game_world.objects = [[], [], []]
     player = Player()
     map = Map()
@@ -40,6 +43,7 @@ def enter():
     itemslot = ItemSlot()
     bushes = [Bush() for n in range(3)]
     trees = [Tree() for n in range(20)]
+    bananas = [Banana() for n in range(2)]
 
     for enemy in enemys :
         game_world.add_object(enemy, 1)
@@ -47,9 +51,14 @@ def enter():
     for tree in trees :
         game_world.add_object(tree, 1)
     game_world.add_object(itemslot, 1)
+
     game_world.add_object(map, 0)
     for bush in bushes :
         game_world.add_object(bush, 1)
+
+    for banana in bananas:
+        game_world.add_object(banana, 1)
+
 
 def exit():
     game_world.clear()
