@@ -22,4 +22,4 @@ class Bush :
         pass
 
     def get_bb(self) :
-        return self.x - 30, self.y - 30 , self.x + 30, self.y + 30
+        return self.x - 30, self.y - 20 , self.x + 20, self.y + 30

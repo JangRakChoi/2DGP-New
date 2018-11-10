@@ -133,6 +133,12 @@ def update():
             player.hide = True
             print("player Collision with Bush")
 
+    for banana in bananas :
+        if collide(player, banana) :
+            bananas.remove(banana)
+            game_world.remove_object(banana)
+
+
     if player.hp < 0 :
         game_framework.run(FailState)
 
