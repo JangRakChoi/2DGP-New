@@ -7,12 +7,11 @@ import main_state_2
 import game_framework
 import game_world
 import FailState
-import player_newimage
 
 from player_newimage import Player
 from enemy1 import Enemy1
 from Map3 import Map
-from ItemSlot import ItemSlot
+#from ItemSlot import ItemSlot
 from Tree import Tree
 from Bush import  Bush
 from Banana import Banana
@@ -23,7 +22,7 @@ player = None
 enemys = None
 trees = None
 map = None
-itemslot = None
+#itemslot = None
 bushes = None
 banana = None
 
@@ -40,7 +39,7 @@ def enter():
     player = Player()
     map = Map()
     enemys = [Enemy1() for n in range(2)]
-    itemslot = ItemSlot()
+    #itemslot = ItemSlot()
     bushes = [Bush() for n in range(3)]
     trees = [Tree() for n in range(20)]
     bananas = [Banana() for n in range(2)]
@@ -50,15 +49,12 @@ def enter():
     game_world.add_object(player, 1)
     for tree in trees :
         game_world.add_object(tree, 1)
-    game_world.add_object(itemslot, 1)
-
+    #game_world.add_object(itemslot, 1)
+    for banana in bananas:
+        game_world.add_object(banana, 1)
     game_world.add_object(map, 0)
     for bush in bushes :
         game_world.add_object(bush, 1)
-
-    for banana in bananas:
-        game_world.add_object(banana, 1)
-
 
 def exit():
     game_world.clear()
@@ -66,10 +62,8 @@ def exit():
 def pause():
     pass
 
-
 def resume():
     pass
-
 
 def handle_events():
     global TreeCount, BushCount, player, map, hp
@@ -137,28 +131,13 @@ def update():
         if collide(player, banana) :
             bananas.remove(banana)
             game_world.remove_object(banana)
-
+            player.hp += 5
 
     if player.hp < 0 :
         game_framework.run(FailState)
-
 
 def draw():
     clear_canvas()
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
-
-
-
-
-
-
-
-
-
-
-
-
-
-

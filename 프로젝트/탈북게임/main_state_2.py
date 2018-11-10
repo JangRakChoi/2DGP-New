@@ -14,9 +14,10 @@ from Bush2 import Bush
 from player_newimage import Player
 from enemy2 import Enemy2
 from Map2 import Map
-from ItemSlot import ItemSlot
+#from ItemSlot import ItemSlot
 from Tree2 import Tree
 from Box import Box
+from Banana2 import Banana
 
 name = "MainState"
 
@@ -26,34 +27,39 @@ trees = None
 map = None
 bushes = None
 boxes = None
+bananas = None
 
 x = 640
 y = 500
 TreeCount = 0
 BushCount = 0
 BoxCount = 0
+BananaCount = 0
 
 def enter():
-    global player, enemys, trees, x, y, map, itemslot, bushes, boxes
+    global player, enemys, trees, x, y, map, itemslot, bushes, boxes, bananas
     game_world.objects = [[], [], []]
     player = Player()
     map = Map()
     enemys = [Enemy2() for n in range(4)]
-    itemslot = ItemSlot()
+    #itemslot = ItemSlot()
     trees = [Tree() for n in range(23)]
     bushes = [Bush() for n in range(4)]
     boxes = [Box() for n in range(5)]
+    bananas = [Banana() for n in range(2)]
 
     for enemy in enemys :
         game_world.add_object(enemy, 1)
     game_world.add_object(player, 1)
     for tree in trees :
         game_world.add_object(tree, 1)
+    for banana in bananas :
+        game_world.add_object(banana, 1)
     for bush in bushes :
         game_world.add_object(bush, 1)
     for box in boxes :
         game_world.add_object(box, 1)
-    game_world.add_object(itemslot, 1)
+    #game_world.add_object(itemslot, 1)
     game_world.add_object(map, 0)
 
     player.hp = main_state.hp
@@ -134,6 +140,12 @@ def update():
         if collide(player, box) :
             player.collide_obj()
             print("Collision with Tree")
+
+    for banana in bananas :
+        if collide(player, banana) :
+            bananas.remove(banana)
+            game_world.remove_object(banana)
+            player.hp += 5
 
     if player.hp < 0 :
         game_framework.run(FailState)
