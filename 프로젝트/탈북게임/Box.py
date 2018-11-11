@@ -10,6 +10,7 @@ class Box :
     def __init__(self) :
         if (Box.image == None) :
             self.image = load_image('box.png')
+        self.Hp = 30
         self.x, self.y = xPos[main_state_2.BoxCount], yPos[main_state_2.BoxCount]
         main_state_2.BoxCount += 1
 
