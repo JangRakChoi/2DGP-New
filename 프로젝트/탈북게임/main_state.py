@@ -132,6 +132,7 @@ def update():
             bananas.remove(banana)
             game_world.remove_object(banana)
             player.hp += 5
+            print("player Collision with Item(Banana)")
 
     if player.hp < 0 :
         game_framework.run(FailState)
