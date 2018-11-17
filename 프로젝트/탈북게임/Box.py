@@ -3,7 +3,7 @@ import random
 import main_state_2
 
 xPos = [320, 1050, 910, 220, 400]
-yPos = [250, 300, 200, 740, 680]
+yPos = [250, 300, 200, 750, 680]
 
 class Box :
     image = None
