@@ -1,5 +1,6 @@
 import game_framework
 from pico2d import *
+from BehaviorTree import BehaviorTree, SelectorNode, SequenceNode, LeafNode
 
 import game_world
 import random
@@ -7,7 +8,7 @@ import math
 import main_state
 
 PIXEL_PER_METER = (10.0 / 0.3)
-RUN_SPEED_KMPH = 20.0
+RUN_SPEED_KMPH = 15.0
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_KMPH * PIXEL_PER_METER)
