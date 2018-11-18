@@ -49,7 +49,7 @@ class Enemy_Knife :
     def find_player(self):
        player = main_state.get_player()
        distance = (player.x - self.x) ** 2 + (player.y - self.y) ** 2
-       if distance < (PIXEL_PER_METER * 10) ** 2 :
+       if distance < (PIXEL_PER_METER * 10) ** 2 and player.hide == False :
            self.dir = math.atan2(player.y - self.y, player.x - self.x)
            return BehaviorTree.SUCCESS
        else :
