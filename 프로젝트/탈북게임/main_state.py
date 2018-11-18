@@ -9,7 +9,7 @@ import game_world
 import FailState
 
 from player_newimage import Player
-from enemy1 import Enemy1
+from Enemy_knife import Enemy_Knife
 from Map3 import Map
 #from ItemSlot import ItemSlot
 from Tree import Tree
@@ -38,7 +38,7 @@ def enter():
     game_world.objects = [[], [], []]
     player = Player()
     map = Map()
-    enemys = [Enemy1() for n in range(2)]
+    enemys = [Enemy_Knife() for n in range(2)]
     #itemslot = ItemSlot()
     bushes = [Bush() for n in range(3)]
     trees = [Tree() for n in range(20)]
