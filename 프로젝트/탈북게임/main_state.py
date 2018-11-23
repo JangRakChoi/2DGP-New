@@ -66,7 +66,7 @@ def resume():
     pass
 
 def handle_events():
-    global TreeCount, BushCount, player, map, hp
+    global TreeCount, BushCount, BananaCount, player, map, hp
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -76,11 +76,13 @@ def handle_events():
         elif (event.type == SDL_KEYDOWN and event.key == SDLK_2) :
             TreeCount = 0
             BushCount = 0
+            BananaCount = 0
             hp = player.hp
             game_framework.change_state(main_state_2)
         elif player.x > 1280 - 50 :
             TreeCount = 0
             BushCount = 0
+            BananaCount = 0
             hp = player.hp
             game_framework.change_state(main_state_2)
         elif map.timer > 60.0 :

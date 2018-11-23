@@ -12,7 +12,7 @@ import main_state
 
 from Bush2 import Bush
 from player_newimage import Player
-from enemy2 import Enemy2
+from Enemy_Gun import Enemy_Gun
 from Map2 import Map
 #from ItemSlot import ItemSlot
 from Tree2 import Tree
@@ -41,7 +41,7 @@ def enter():
     game_world.objects = [[], [], []]
     player = Player()
     map = Map()
-    enemys = [Enemy2() for n in range(4)]
+    enemys = [Enemy_Gun() for n in range(4)]
     #itemslot = ItemSlot()
     trees = [Tree() for n in range(23)]
     bushes = [Bush() for n in range(4)]
@@ -155,3 +155,6 @@ def draw():
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
+
+def get_player() :
+    return player
