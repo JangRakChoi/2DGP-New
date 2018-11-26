@@ -11,7 +11,7 @@ RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_KMPH * PIXEL_PER_METER)
 
-WALK_SPEED_KMPH = 5.0
+WALK_SPEED_KMPH = 3.0
 WALK_SPEED_MPM = (WALK_SPEED_KMPH * 1000.0 / 60.0)
 WALK_SPEED_MPS = (WALK_SPEED_MPM / 60.0)
 WALK_SPEED_PPS = (WALK_SPEED_KMPH * PIXEL_PER_METER)
@@ -78,10 +78,10 @@ class IdleState:
         if boy.hide == False :
             if boy.collideWithEnemy == True:
                 boy.image.opacify(random.randint(1, 100) * 0.01)
-            if boy.dirx == 1 or boy.diry == 1:
-                boy.image.clip_draw(int(boy.frame) * 125, 300, 125, 100, boy.x, boy.y)
+            if boy.dirx != -1 :
+                boy.image.clip_draw(0, 100, 100, 100, boy.x, boy.y)
             else:
-                boy.image.clip_draw(int(boy.frame) * 125, 200, 125, 100, boy.x, boy.y)
+                boy.image.clip_draw(700, 0, 100, 100, boy.x, boy.y)
 
 class WalkState :
     @staticmethod
@@ -129,10 +129,10 @@ class WalkState :
         if boy.hide == False:
             if boy.collideWithEnemy == True:
                 boy.image.opacify(random.randint(1, 100) * 0.01)
-            if boy.dirx == 1 :
-                boy.image.clip_draw(int(boy.frame) * 125, 100, 125, 100, boy.x, boy.y)
+            if boy.dirx != - 1 :
+                boy.image.clip_draw(int(boy.frame) * 100, 100, 100, 100, boy.x, boy.y)
             else:
-                boy.image.clip_draw(int(boy.frame) * 125, 0, 125, 100, boy.x, boy.y)
+                boy.image.clip_draw(int(boy.frame) * 100, 0, 100, 100, boy.x, boy.y)
 
 
 class RunState:
@@ -183,10 +183,10 @@ class RunState:
         if boy.hide == False :
             if boy.collideWithEnemy == True :
                 boy.image.opacify(random.randint(1, 100) * 0.01)
-            if boy.dirx == 1 :
-                boy.image.clip_draw(int(boy.frame) * 125, 100, 125, 100, boy.x, boy.y)
+            if boy.dirx != -1 :
+                boy.image.clip_draw(int(boy.frame) * 100, 100, 100, 100, boy.x, boy.y)
             else:
-                boy.image.clip_draw(int(boy.frame) * 125, 0, 125, 100, boy.x, boy.y)
+                boy.image.clip_draw(int(boy.frame) * 100, 0, 100, 100, boy.x, boy.y)
 
 next_state_table = {
     IdleState: {RIGHT_UP: WalkState, LEFT_UP: WalkState, RIGHT_DOWN: WalkState, LEFT_DOWN: WalkState, UP_DOWN: WalkState, DOWN_DOWN: WalkState, UP_UP: WalkState, DOWN_UP: WalkState, SHIFT_DOWN: IdleState, SHIFT_UP: IdleState },
@@ -198,7 +198,7 @@ next_state_table = {
 
 class Player:
     def __init__(self) :
-        self.image = load_image("animation_sheet.png")
+        self.image = load_image("player.png")
         self.x, self.y = 100, 300
         self.frame = 0
         self.hp = 100
@@ -219,6 +219,7 @@ class Player:
     def draw(self) :
         self.cur_state.draw(self)
         self.font.draw(self.x - 50, self.y + 50, 'HP : %3.2f' % self.hp, (255, 0, 0))
+        draw_rectangle(*self.get_bb())
 
     def add_event(self, event):
         self.event_que.insert(0, event)
