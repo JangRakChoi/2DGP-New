@@ -10,7 +10,8 @@ import FailState
 
 from player_newimage import Player
 from Enemy_knife import Enemy_Knife
-from Map3 import Map
+#from Map3 import Map
+from Map3 import Map as Background
 #from ItemSlot import ItemSlot
 from Tree import Tree
 from Bush import  Bush
@@ -37,7 +38,7 @@ def enter():
     global player, enemys, trees, x, y, map, itemslot, bushes, bananas
     game_world.objects = [[], [], []]
     player = Player()
-    map = Map()
+    map = Background()
     enemys = [Enemy_Knife() for n in range(2)]
     #itemslot = ItemSlot()
     bushes = [Bush() for n in range(3)]
@@ -79,7 +80,7 @@ def handle_events():
             BananaCount = 0
             hp = player.hp
             game_framework.change_state(main_state_2)
-        elif player.x > 1280 - 50 :
+        elif player.x > 800 - 50 :
             TreeCount = 0
             BushCount = 0
             BananaCount = 0

@@ -76,11 +76,11 @@ class WalkState:
         boy.y = ((-t ** 3 + 2 * t ** 2 - t) * yPos[(boy.count - 3)] + (3 * t ** 3 - 5 * t ** 2 + 2) * yPos[(boy.count - 2)] + (-3 * t ** 3 + 4 * t ** 2 + t) * yPos[(boy.count - 1)] + (t ** 3 - t ** 2) * yPos[(boy.count)]) / 2
         if (boy.n == 200):
             boy.count = (boy.count + 1) % 7
-        boy.x = clamp(50, boy.x, 1280 - 50)
-        boy.y = clamp(50, boy.y, 1024 - 50)
+        boy.x = clamp(50, boy.x, 800 - 50)
+        boy.y = clamp(50, boy.y, 600 - 50)
 
-        boy.x = clamp(25, boy.x, 1280 - 25)
-        boy.y = clamp(25, boy.y, 1000 - 25)
+        boy.x = clamp(25, boy.x, 800 - 25)
+        boy.y = clamp(25, boy.y, 600 - 25)
 
         boy.timer += get_time() - boy.cur_time
         boy.cur_time = get_time()
