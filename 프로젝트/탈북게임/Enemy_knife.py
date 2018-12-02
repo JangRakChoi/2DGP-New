@@ -36,6 +36,9 @@ class Enemy_Knife :
         self.timer = 1.0 # change direction every 1 sec when wandering
         self.frame = 0
         self.build_behavior_tree()
+        self.Attack = False
+        self.Attack_sound = load_wav('KNIFE.wav')
+        self.Attack_sound.set_volume(32)
 
     def wander(self):
         self.speed = RUN_SPEED_PPS
@@ -63,19 +66,22 @@ class Enemy_Knife :
     def attack_find_player(self):
         player = main_state.get_player()
         distance = (player.x - self.x) ** 2 + (player.y - self.y) ** 2
-        if distance < (PIXEL_PER_METER * 8) ** 2 and player.hide == False:
+        if distance < (PIXEL_PER_METER * 3) ** 2 and player.hide == False:
             self.dir = math.atan2(player.y - self.y, player.x - self.x)
             return BehaviorTree.SUCCESS
         else:
             self.speed = 0
+            self.Attack = False
             return BehaviorTree.FAIL
 
     def attack_player(self):
-        if math.cos(self.dir) < 0:
-            self.image.clip_draw(int(self.frame) * 78, 490, 78, 98, self.x, self.y)
-        else :
-            self.image.clip_draw(int(self.frame) * 78, 392, 78, 98, self.x, self.y)
+        self.speed = 0
+        self.Attack = True
+        self.Attack_Player()
         return BehaviorTree.SUCCESS
+
+    def Attack_Player(self) :
+        self.Attack_sound.play()
 
     def build_behavior_tree(self):
 
@@ -103,10 +109,17 @@ class Enemy_Knife :
         self.y = clamp(50, self.y, 1024 - 50)
 
     def draw(self) :
-        if math.cos(self.dir) < 0:
-            self.image.clip_draw(int(self.frame) * 78, 98, 78, 98, self.x, self.y)
+        if self.Attack :
+            if math.cos(self.dir) < 0:
+                self.image.clip_draw(int(self.frame) * 78, 495, 78, 95, self.x, self.y)
+            else:
+                self.image.clip_draw(int(self.frame) * 78, 397, 78, 95, self.x, self.y)
         else :
-            self.image.clip_draw(int(self.frame) * 78, 0, 78, 98, self.x, self.y)
+            if math.cos(self.dir) < 0:
+                self.image.clip_draw(int(self.frame) * 78, 98, 78, 98, self.x, self.y)
+            else :
+                self.image.clip_draw(int(self.frame) * 78, 0, 78, 98, self.x, self.y)
+
         draw_rectangle(*self.get_bb())
 
     def get_bb(self) :
