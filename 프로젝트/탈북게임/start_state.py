@@ -5,10 +5,17 @@ import main_state
 name = "StartState"
 image = None
 logo_time = 0.0
+bgm = None
 
 def enter():
     global image
     image = load_image('start.png')
+    global bgm
+    bgm = load_music('TheTorchOfTheAnnihilationOfCommunism.mp3')
+    bgm.set_volume(64)
+    bgm.repeat_play()
+
+
 def exit():
     global image
     del(image)

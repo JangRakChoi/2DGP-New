@@ -36,9 +36,6 @@ class Enemy_Knife :
         self.timer = 1.0 # change direction every 1 sec when wandering
         self.frame = 0
         self.build_behavior_tree()
-        self.bgm = load_music('TheTorchOfTheAnnihilationOfCommunism.mp3')
-        self.bgm.set_volume(64)
-        self.bgm.repeat_play()
 
     def wander(self):
         self.speed = RUN_SPEED_PPS
