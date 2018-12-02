@@ -67,8 +67,8 @@ class WalkingState :
         boy.y += boy.y_velocity * game_framework.frame_time
         #boy.x = clamp(25, boy.x, get_canvas_width() - 25)
         #boy.y = clamp(25, boy.y, get_canvas_height() - 25)
-        boy.x = clamp(25, boy.x, 1280 - 25)
-        boy.y = clamp(25, boy.y, 1000 - 25)
+        boy.x = clamp(25, boy.x, 1280 - 50)
+        boy.y = clamp(25, boy.y, 1080 - 50)
         boy.timer += get_time() - boy.cur_time
         boy.cur_time = get_time()
         if boy.collideWithEnemy == True :
@@ -185,10 +185,9 @@ class Player:
     def init(self) :
         self.x, self.y = 100, 300
         self.frame = 0
-        self.velocityRL = 0
-        self.velocityUD = 0
-        self.dirx = 1
-        self.diry = 1
+        self.x_velocity = 0
+        self.y_velocity = 0
+        self.dir = 1
         self.event_que = []
         self.cur_state = WalkingState
         self.cur_state.enter(self, None)

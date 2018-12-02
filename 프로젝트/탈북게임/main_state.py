@@ -15,47 +15,50 @@ from Map3 import Map as Background
 #from ItemSlot import ItemSlot
 from Tree import Tree
 from Bush import  Bush
-from Banana import Banana
 
 name = "MainState"
 
 player = None
 enemys = None
 trees = None
-map = None
+background = None
 #itemslot = None
 bushes = None
-banana = None
 
-x = 640
-y = 500
 TreeCount = 0
 BushCount = 0
-BananaCount = 0
 hp = 0
 
 def enter():
-    global player, enemys, trees, x, y, map, itemslot, bushes, bananas
-    game_world.objects = [[], [], []]
+    global player
     player = Player()
-    map = Background()
-    enemys = [Enemy_Knife() for n in range(2)]
-    #itemslot = ItemSlot()
-    bushes = [Bush() for n in range(3)]
-    trees = [Tree() for n in range(20)]
-    bananas = [Banana() for n in range(2)]
-
-    for enemy in enemys :
-        game_world.add_object(enemy, 1)
     game_world.add_object(player, 1)
-    for tree in trees :
-        game_world.add_object(tree, 1)
+
+    global enemys
+    enemys = [Enemy_Knife() for i in range(4)]
+    game_world.add_objects(enemys, 1)
+
+    global background
+    background = Background()
+    game_world.add_object(background, 0)
+
+    #global itemslot
+    #itemslot = ItemSlot()
     #game_world.add_object(itemslot, 1)
-    for banana in bananas:
-        game_world.add_object(banana, 1)
-    game_world.add_object(map, 0)
-    for bush in bushes :
-        game_world.add_object(bush, 1)
+
+    global bushes
+    bushes = [Bush() for n in range(3)]
+    game_world.add_objects(bushes, 1)
+
+    global trees
+    trees = [Tree() for n in range(20)]
+    game_world.add_objects(trees, 1)
+
+
+
+
+
+
 
 def exit():
     game_world.clear()
@@ -67,7 +70,7 @@ def resume():
     pass
 
 def handle_events():
-    global TreeCount, BushCount, BananaCount, player, map, hp
+    global TreeCount, BushCount, BananaCount, player, background, hp
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -77,16 +80,14 @@ def handle_events():
         elif (event.type == SDL_KEYDOWN and event.key == SDLK_2) :
             TreeCount = 0
             BushCount = 0
-            BananaCount = 0
             hp = player.hp
             game_framework.change_state(main_state_2)
-        elif player.x > 800 - 50 :
+        elif player.x > 1280 - 50 :
             TreeCount = 0
             BushCount = 0
-            BananaCount = 0
             hp = player.hp
             game_framework.change_state(main_state_2)
-        elif map.timer > 60.0 :
+        elif background.timer > 60.0 :
             game_framework.run(FailState)
         else:
             player.handle_event(event)
@@ -129,13 +130,6 @@ def update():
         if collide(player, bush) :
             player.hide = True
             print("player Collision with Bush")
-
-    for banana in bananas :
-        if collide(player, banana) :
-            bananas.remove(banana)
-            game_world.remove_object(banana)
-            player.hp += 5
-            print("player Collision with Item(Banana)")
 
     if player.hp < 0 :
         game_framework.run(FailState)

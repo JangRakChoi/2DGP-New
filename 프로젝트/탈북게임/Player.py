@@ -115,7 +115,7 @@ class WalkState :
         boy.x += boy.velocityRL * game_framework.frame_time
         boy.y += boy.velocityUD * game_framework.frame_time
         boy.x = clamp(25, boy.x, 1280 - 25)
-        boy.y = clamp(25, boy.y, 1000 - 25)
+        boy.y = clamp(25, boy.y, 1080 - 25)
         boy.timer += get_time() - boy.cur_time
         boy.cur_time = get_time()
         if boy.collideWithEnemy == True :

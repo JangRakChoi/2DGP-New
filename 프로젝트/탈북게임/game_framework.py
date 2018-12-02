@@ -105,7 +105,7 @@ def run(start_state):
     # repeatedly delete the top of the stack
     while (len(stack) > 0):
         stack[-1].exit()
-        stack.pop(  )
+        stack.pop()
 
 
 def test_game_framework():

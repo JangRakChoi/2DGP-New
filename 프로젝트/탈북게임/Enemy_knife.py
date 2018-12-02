@@ -16,7 +16,7 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
 # Enemy Action Speed
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
-FRAMES_PER_ACTION = 10
+FRAMES_PER_ACTION = 8
 
 xPos = [600, 400, 500, 700, 900, 1000, 800]
 yPos = [600, 400, 200, 400, 300, 500, 400]
@@ -60,14 +60,37 @@ class Enemy_Knife :
         self.speed = RUN_SPEED_PPS
         return BehaviorTree.SUCCESS
 
+    def attack_find_player(self):
+        player = main_state.get_player()
+        distance = (player.x - self.x) ** 2 + (player.y - self.y) ** 2
+        if distance < (PIXEL_PER_METER * 8) ** 2 and player.hide == False:
+            self.dir = math.atan2(player.y - self.y, player.x - self.x)
+            return BehaviorTree.SUCCESS
+        else:
+            self.speed = 0
+            return BehaviorTree.FAIL
+
+    def attack_player(self):
+        if math.cos(self.dir) < 0:
+            self.image.clip_draw(int(self.frame) * 78, 490, 78, 98, self.x, self.y)
+        else :
+            self.image.clip_draw(int(self.frame) * 78, 392, 78, 98, self.x, self.y)
+        return BehaviorTree.SUCCESS
+
     def build_behavior_tree(self):
+
+        attack_find_player_node = LeafNode("Attack Find Player", self.attack_find_player)
+        attack_player_node = LeafNode("Attack Player", self.attack_player)
+        attack_node = SequenceNode("Attack")
+        attack_node.add_children(attack_find_player_node, attack_player_node)
+
         wander_node = LeafNode("Wander", self.wander)
         find_player_node = LeafNode("Find Player", self.find_player)
         move_to_player_node = LeafNode("Move to Player", self.move_to_player)
         chase_node = SequenceNode("Chase")
         chase_node.add_children(find_player_node, move_to_player_node)
         wander_chase_node = SelectorNode("WanderChase")
-        wander_chase_node.add_children(chase_node, wander_node)
+        wander_chase_node.add_children(attack_node, chase_node, wander_node)
         self.bt = BehaviorTree(wander_chase_node)
 
     def update(self):

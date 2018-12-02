@@ -86,7 +86,7 @@ def handle_events():
             game_framework.run(FailState)
         elif map.timer > 60.0 :
             game_framework.run(FailState)
-        elif player.x > 800 - 50 :
+        elif player.x > 1280 - 50 :
             game_framework.run(SuccessState)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_1 :
             TreeCount = 0
