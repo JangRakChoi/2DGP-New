@@ -28,6 +28,7 @@ class Bullet:
 
     def draw(self):
         self.image.draw(self.x, self.y)
+        draw_rectangle(*self.get_bb())
 
     def update(self):
         self.dir = math.atan2(self.dest_y - self.y, self.dest_x - self.x)
@@ -35,3 +36,6 @@ class Bullet:
         self.y += self.speed * math.sin(self.dir) * game_framework.frame_time
         if self.x < 25 or self.x > 1280 - 25:
             game_world.remove_object(self)
+
+    def get_bb(self) :
+        return self.x - 30, self.y - 20 , self.x + 20, self.y + 30

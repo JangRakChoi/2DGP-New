@@ -18,6 +18,7 @@ from Map2 import Map
 from Tree2 import Tree
 from Box import Box
 from Banana2 import Banana
+from Key_stage1 import  Key
 
 name = "MainState"
 
@@ -35,6 +36,7 @@ TreeCount = 0
 BushCount = 0
 BoxCount = 0
 BananaCount = 0
+KeyCount = random.randint(0, 5)
 
 def enter():
     global player, enemys, trees, x, y, map, itemslot, bushes, boxes, bananas
@@ -61,6 +63,10 @@ def enter():
         game_world.add_object(box, 1)
     game_world.add_object(map, 0)
 
+    global key
+    key = Key()
+    game_world.add_object(key, 1)
+
     player.hp = main_state.hp
 
 
@@ -74,7 +80,7 @@ def resume():
     pass
 
 def handle_events():
-    global map, player, BushCount, TreeCount, BoxCount, boxes
+    global map, player, BushCount, TreeCount, BoxCount, KeyCount, boxes
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -85,14 +91,14 @@ def handle_events():
             game_framework.run(FailState)
         elif map.timer > 60.0 :
             game_framework.run(FailState)
-        elif player.x > 1280 - 50 :
+        elif player.x > 1280 - 100 :
             game_framework.run(SuccessState)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_1 :
             TreeCount = 0
             BushCount = 0
             BoxCount = 0
             game_framework.change_state(main_state)
-        elif map.timer > 200.0 :
+        elif map.timer > 300.0 :
             game_framework.run(FailState)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE :
             for box in boxes:
@@ -122,9 +128,10 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
     for enemy in enemys :
-        if collide(player, enemy) :
-            player.collide_enemy()
-            print("Collision with Enemy")
+        if player.hide == False :
+            if collide(player, enemy) :
+                player.collide_enemy()
+                print("Collision with Enemy")
 
     for tree in trees :
         if collide(player, tree) :
@@ -148,9 +155,14 @@ def update():
 
     for banana in bananas :
         if collide(player, banana) :
+            banana.Collide()
             bananas.remove(banana)
             game_world.remove_object(banana)
             player.hp += 5
+
+    if collide(player, key):
+        key.Collide()
+        key.collision = True
 
     if player.hp < 0 :
         game_framework.run(FailState)

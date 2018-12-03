@@ -6,6 +6,7 @@ import game_world
 import random
 import math
 import main_state
+import start_state
 
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
 RUN_SPEED_KMPH = 10.0  # Km / Hour
@@ -55,6 +56,7 @@ class Enemy_Knife :
        distance = (player.x - self.x) ** 2 + (player.y - self.y) ** 2
        if distance < (PIXEL_PER_METER * 10) ** 2 and player.hide == False :
            self.dir = math.atan2(player.y - self.y, player.x - self.x)
+           start_state.bgm.stop()
            return BehaviorTree.SUCCESS
        else :
            self.speed = 0

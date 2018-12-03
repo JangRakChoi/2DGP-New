@@ -13,6 +13,8 @@ class Banana :
         self.x, self.y = xPos[main_state_2.BananaCount], yPos[main_state_2.BananaCount]
         self.frame = random.randint(0, 1)
         main_state_2.BananaCount += 1
+        self.Collision_sound = load_wav('PICKUP.wav')
+        self.Collision_sound.set_volume(64)
 
     def draw(self) :
         self.image.draw(self.x, self.y)
@@ -23,3 +25,6 @@ class Banana :
 
     def get_bb(self) :
         return self.x - 20, self.y - 20 , self.x + 20, self.y + 20
+
+    def Collide(self) :
+        self.Collision_sound.play()

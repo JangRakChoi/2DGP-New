@@ -20,6 +20,7 @@ class Box :
     def draw(self) :
         if (self.Hp > 0) :
             self.image.draw(self.x, self.y)
+            draw_rectangle(*self.get_bb())
 
     def update(self):
         pass

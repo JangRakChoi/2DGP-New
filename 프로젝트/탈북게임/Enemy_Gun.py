@@ -7,6 +7,7 @@ import game_world
 import random
 import math
 import main_state_2
+import start_state
 
 
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -92,7 +93,6 @@ class Enemy_Gun :
         self.Attack_count += 1
 
     def build_behavior_tree(self):
-
         attack_find_player_node = LeafNode("Attack Find Player", self.attack_find_player)
         attack_player_node = LeafNode("Attack Player", self.attack_player)
         attack_node = SequenceNode("Attack")
