@@ -59,7 +59,6 @@ def enter():
         game_world.add_object(bush, 1)
     for box in boxes :
         game_world.add_object(box, 1)
-    #game_world.add_object(itemslot, 1)
     game_world.add_object(map, 0)
 
     player.hp = main_state.hp
@@ -75,12 +74,12 @@ def resume():
     pass
 
 def handle_events():
-    global map, player, BushCount, TreeCount, BoxCount
+    global map, player, BushCount, TreeCount, BoxCount, boxes
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE :
             game_framework.quit()
         elif player.hp < 0 :
             game_framework.run(FailState)
@@ -93,11 +92,14 @@ def handle_events():
             BushCount = 0
             BoxCount = 0
             game_framework.change_state(main_state)
-        elif map.timer > 120.0 :
+        elif map.timer > 200.0 :
             game_framework.run(FailState)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE :
+            for box in boxes:
+                if box.collision == True :
+                    box.Attack_box()
         else:
             player.handle_event(event)
-
 
 def collide(a, b) :
     left_a, bottom_a, right_a, top_a = a.get_bb()
@@ -140,6 +142,9 @@ def update():
         if collide(player, box) :
             player.collide_obj()
             print("Collision with Tree")
+            box.collision = True
+        else :
+            box.collision = False
 
     for banana in bananas :
         if collide(player, banana) :

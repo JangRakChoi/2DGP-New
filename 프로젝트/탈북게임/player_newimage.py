@@ -164,23 +164,23 @@ class Player:
             self.hp -= 10
             self.collideWithEnemy = True
         if self.where_collide == 1 :
-            self.x -= 20
+            self.x -= self.x_velocity * game_framework.frame_time
         if self.where_collide == 2 :
-            self.y -= 20
+            self.y -= self.y_velocity * game_framework.frame_time
         if self.where_collide == 3 :
-            self.x += 20
+            self.x += self.x_velocity * game_framework.frame_time
         if self.where_collide == 4 :
-            self.y += 20
+            self.y += self.y_velocity * game_framework.frame_time
 
     def collide_obj(self) :
         if self.where_collide == 1 :
-            self.x -= 10
+            self.x -= self.x_velocity * game_framework.frame_time
         if self.where_collide == 2 :
-            self.y -= 10
+            self.y -= self.y_velocity * game_framework.frame_time
         if self.where_collide == 3 :
-            self.x += 10
+            self.x += self.x_velocity * game_framework.frame_time
         if self.where_collide == 4 :
-            self.y += 10
+            self.y += self.y_velocity * game_framework.frame_time
 
     def init(self) :
         self.x, self.y = 100, 300
