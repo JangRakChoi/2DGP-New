@@ -24,6 +24,17 @@ FRAMES_PER_ACTION = 8
 xPos = [600, 400, 500, 700, 900, 1000, 800, 650, 850]
 yPos = [600, 400, 200, 400, 300, 500, 600, 570, 370]
 
+def collide(a, b):
+    left_a, bottom_a, right_a, top_a = a.get_bb()
+    left_b, bottom_b, right_b, top_b = b.get_bb()
+
+    if left_a > right_b: return False
+    if right_a < left_b: return False
+    if top_a < bottom_b: return False
+    if bottom_a > top_b: return False
+
+    return True
+
 class Enemy_Gun :
     def __init__(self) :
         self.image = load_image("enemy2.png")

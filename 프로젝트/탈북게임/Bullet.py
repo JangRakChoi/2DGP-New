@@ -28,13 +28,14 @@ class Bullet:
 
     def draw(self):
         self.image.draw(self.x, self.y)
-        draw_rectangle(*self.get_bb())
 
     def update(self):
         self.dir = math.atan2(self.dest_y - self.y, self.dest_x - self.x)
         self.x += self.speed * math.cos(self.dir) * game_framework.frame_time
         self.y += self.speed * math.sin(self.dir) * game_framework.frame_time
         if self.x < 25 or self.x > 1280 - 25:
+            game_world.remove_object(self)
+        elif self.y < 25 or self.y > 1200 - 25:
             game_world.remove_object(self)
 
     def get_bb(self) :
