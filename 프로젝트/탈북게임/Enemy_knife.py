@@ -39,6 +39,7 @@ class Enemy_Knife :
         self.Attack = False
         self.Attack_sound = load_wav('KNIFE.wav')
         self.Attack_sound.set_volume(32)
+        self.Attack_count = 0
 
     def wander(self):
         self.speed = RUN_SPEED_PPS
@@ -81,7 +82,10 @@ class Enemy_Knife :
         return BehaviorTree.SUCCESS
 
     def Attack_Player(self) :
-        self.Attack_sound.play()
+        if self.Attack_count >= 50:
+            self.Attack_sound.play()
+            self.Attack_count = -50
+        self.Attack_count += 1
 
     def build_behavior_tree(self):
 

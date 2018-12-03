@@ -42,6 +42,7 @@ class Enemy_Gun :
         self.Attack_sound = load_wav('GUNSHOT.wav')
         self.Attack_sound.set_volume(32)
         self.Attack_count = 0
+        self.dest_x, self.dest_y = 0, 0
 
     def wander(self):
         self.speed = RUN_SPEED_PPS
@@ -75,7 +76,6 @@ class Enemy_Gun :
         else:
             self.speed = 0
             self.Attack = False
-            self.Attack_count = 0
             return BehaviorTree.FAIL
 
     def attack_player(self):
@@ -85,10 +85,11 @@ class Enemy_Gun :
         return BehaviorTree.SUCCESS
 
     def Attack_Player(self):
-        if self.Attack_count == 0 :
+        if self.Attack_count >= 50 :
             self.Attack_sound.play()
             self.Shoot()
-            self.Attack_count = 1
+            self.Attack_count = -50
+        self.Attack_count += 1
 
     def build_behavior_tree(self):
 
@@ -135,5 +136,6 @@ class Enemy_Gun :
         pass
 
     def Shoot(self):
-        bullet = Bullet(self.x, self.y, self.dir*3)
+        player = main_state_2.get_player()
+        bullet = Bullet(self.x, self.y, self.dir * RUN_SPEED_PPS * 10, player.x, player.y)
         game_world.add_object(bullet, 1)
