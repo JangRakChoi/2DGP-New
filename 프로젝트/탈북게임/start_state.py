@@ -7,18 +7,29 @@ image = None
 logo_time = 0.0
 bgm = None
 
+stage_num = 0
+
+Siren_bgm = None
+
 def enter():
     global image
     image = load_image('start.png')
+
     global bgm
     bgm = load_music('TheTorchOfTheAnnihilationOfCommunism.mp3')
-    bgm.set_volume(64)
+    bgm.set_volume(100)
     bgm.repeat_play()
+
 
 
 def exit():
     global image
     del(image)
+
+    global Siren_bgm
+    Siren_bgm = load_music('SIREN.mp3')
+    Siren_bgm.set_volume(100)
+    Siren_bgm.repeat_play()
 
 def update():
     pass
@@ -26,7 +37,7 @@ def update():
 def draw():
     global image
     clear_canvas()
-    image.draw(640, 512)
+    image.draw(640, 560)
     update_canvas()
 
 def handle_events():

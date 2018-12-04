@@ -3,7 +3,7 @@ import random
 import main_state_2
 
 xPos = [400, 1100, 730, 770]
-yPos = [150, 390, 700, 220]
+yPos = [150, 390, 700, 350]
 
 class Bush :
     image = None
@@ -16,7 +16,6 @@ class Bush :
 
     def draw(self) :
         self.image.clip_draw(0, 0, 120, 120, self.x, self.y)
-        draw_rectangle(*self.get_bb())
 
     def update(self):
         pass

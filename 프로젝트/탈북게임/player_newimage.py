@@ -72,7 +72,7 @@ class WalkingState :
         boy.timer += get_time() - boy.cur_time
         boy.cur_time = get_time()
         if boy.collideWithEnemy == True :
-            if boy.timer >= 3:
+            if boy.timer >= 5:
                 boy.collideWithEnemy = False
                 boy.image.opacify(1)
                 boy.timer = 0
@@ -138,7 +138,6 @@ class Player:
     def draw(self) :
         self.cur_state.draw(self)
         self.font.draw(self.x - 50, self.y + 50, 'HP : %3.2f' % self.hp, (255, 0, 0))
-        draw_rectangle(*self.get_bb())
 
     def add_event(self, event):
         self.event_que.insert(0, event)
@@ -150,6 +149,8 @@ class Player:
             self.cur_state.exit(self, event)
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
+        if self.hp > 100 :
+            self.hp = 100
 
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:

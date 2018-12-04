@@ -52,7 +52,7 @@ class Enemy_Gun :
         self.build_behavior_tree()
         self.Attack = False
         self.Attack_sound = load_wav('GUNSHOT.wav')
-        self.Attack_sound.set_volume(32)
+        self.Attack_sound.set_volume(80)
         self.Attack_count = 0
         self.dest_x, self.dest_y = 0, 0
 
@@ -128,15 +128,14 @@ class Enemy_Gun :
         self.y = clamp(50, self.y, 1024 - 50)
 
     def draw(self) :
-        draw_rectangle(*self.get_bb())
         if self.Attack :
             if math.cos(self.dir) < 0:
-                self.image.clip_draw(int(self.frame) * 78, 500, 78, 95, self.x, self.y)
+                self.image.clip_draw(int(self.frame) * 77, 500, 78, 95, self.x, self.y)
             else:
-                self.image.clip_draw(int(self.frame) * 78, 405, 78, 95, self.x, self.y)
+                self.image.clip_draw(int(self.frame) * 77, 405, 78, 95, self.x, self.y)
         else :
             if math.cos(self.dir) < 0:
-                self.image.clip_draw(int(self.frame) * 77, 103, 77, 103, self.x, self.y)
+                self.image.clip_draw(int(self.frame) * 77, 102, 77, 103, self.x, self.y)
             else:
                 self.image.clip_draw(int(self.frame) * 77, 0, 77, 103, self.x, self.y)
 

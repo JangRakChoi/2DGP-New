@@ -2,8 +2,8 @@ from pico2d import *
 import random
 import main_state
 
-xPos = [1100, 730]
-yPos = [680, 670]
+xPos = [100, 730]
+yPos = [500, 670]
 
 class Banana :
     image = None
@@ -16,7 +16,6 @@ class Banana :
 
     def draw(self) :
         self.image.draw(self.x, self.y)
-        draw_rectangle(*self.get_bb())
 
     def update(self):
         pass

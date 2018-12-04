@@ -2,8 +2,8 @@ from pico2d import *
 import random
 import main_state_2
 
-xPos = [320, 1050, 910, 220, 400]
-yPos = [250, 300, 200, 750, 680]
+xPos = [320, 1000, 910, 220, 400]
+yPos = [250, 500, 200, 750, 680]
 
 class Box :
     image = None
@@ -20,14 +20,13 @@ class Box :
     def draw(self) :
         if (self.Hp > 0) :
             self.image.draw(self.x, self.y)
-            draw_rectangle(*self.get_bb())
 
     def update(self):
         pass
 
     def get_bb(self) :
         if (self.Hp > 0) :
-            return self.x - 50, self.y - 30 , self.x + 50, self.y + 30
+            return self.x - 50, self.y - 40 , self.x + 50, self.y + 40
         else :
             return -50, -50, -50, -50
 

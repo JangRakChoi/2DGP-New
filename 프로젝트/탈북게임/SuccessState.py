@@ -6,10 +6,19 @@ import game_world
 name = "SuccessState"
 image = None
 logo_time = 0.0
+bgm = None
 
 def enter():
-    global image
+    global image, bgm
     image = load_image('success.png')
+    start_state.Siren_bgm.stop()
+
+    bgm = load_music('CLEAR.mp3')
+    bgm.set_volume(100)
+    bgm.repeat_play()
+
+
+
 
 def exit():
     global image

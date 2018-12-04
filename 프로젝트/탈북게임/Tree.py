@@ -16,7 +16,6 @@ class Tree :
 
     def draw(self) :
         self.image.clip_draw(self.frame * 97, 0, 97, 154, self.x, self.y)
-        draw_rectangle(*self.get_bb())
 
     def update(self):
         pass

@@ -7,6 +7,8 @@ import main_state_2
 import game_framework
 import game_world
 import FailState
+import start_state
+import Pause_state
 
 from player_newimage import Player
 from Enemy_knife import Enemy_Knife
@@ -28,6 +30,8 @@ bushes = None
 TreeCount = 0
 BushCount = 0
 hp = 0
+
+start_state.stage_num = 1
 
 def enter():
     global player
@@ -54,12 +58,6 @@ def enter():
     trees = [Tree() for n in range(20)]
     game_world.add_objects(trees, 1)
 
-
-
-
-
-
-
 def exit():
     game_world.clear()
 
@@ -75,20 +73,26 @@ def handle_events():
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
+        elif player.hp <= 0 :
+            game_framework.run(FailState)
         elif (event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE) :
             game_framework.run(FailState)
         elif (event.type == SDL_KEYDOWN and event.key == SDLK_2) :
             TreeCount = 0
+            BananaCount = 0
             BushCount = 0
             hp = player.hp
             game_framework.change_state(main_state_2)
         elif player.x > 1280 - 100 :
             TreeCount = 0
+            BananaCount = 0
             BushCount = 0
             hp = player.hp
             game_framework.change_state(main_state_2)
         elif background.timer > 60.0 :
             game_framework.run(FailState)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_p :
+            game_framework.push_state(Pause_state)
         else:
             player.handle_event(event)
 
@@ -131,7 +135,7 @@ def update():
             player.hide = True
             print("player Collision with Bush")
 
-    if player.hp < 0 :
+    if player.hp <= 0 :
         game_framework.run(FailState)
 
 def draw():

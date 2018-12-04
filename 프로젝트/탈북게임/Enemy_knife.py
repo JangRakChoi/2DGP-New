@@ -39,8 +39,8 @@ class Enemy_Knife :
         self.build_behavior_tree()
         self.Attack = False
         self.Attack_sound = load_wav('KNIFE.wav')
-        self.Attack_sound.set_volume(32)
-        self.Attack_count = 0
+        self.Attack_sound.set_volume(100)
+        self.Attack_count = 30
 
     def wander(self):
         self.speed = RUN_SPEED_PPS
@@ -56,7 +56,6 @@ class Enemy_Knife :
        distance = (player.x - self.x) ** 2 + (player.y - self.y) ** 2
        if distance < (PIXEL_PER_METER * 10) ** 2 and player.hide == False :
            self.dir = math.atan2(player.y - self.y, player.x - self.x)
-           start_state.bgm.stop()
            return BehaviorTree.SUCCESS
        else :
            self.speed = 0
@@ -84,9 +83,12 @@ class Enemy_Knife :
         return BehaviorTree.SUCCESS
 
     def Attack_Player(self) :
-        if self.Attack_count >= 50:
+        player = main_state.get_player()
+        if self.Attack_count >= 30:
             self.Attack_sound.play()
-            self.Attack_count = -50
+            self.Attack_count = -30
+            player.hp -= 10
+            player.collideWithEnemy = True
         self.Attack_count += 1
 
     def build_behavior_tree(self):
@@ -117,16 +119,14 @@ class Enemy_Knife :
     def draw(self) :
         if self.Attack :
             if math.cos(self.dir) < 0:
-                self.image.clip_draw(int(self.frame) * 78, 495, 78, 95, self.x, self.y)
+                self.image.clip_draw(int(self.frame) * 78, 495, 78, 98, self.x, self.y)
             else:
-                self.image.clip_draw(int(self.frame) * 78, 397, 78, 95, self.x, self.y)
+                self.image.clip_draw(int(self.frame) * 78, 397, 78, 98, self.x, self.y)
         else :
             if math.cos(self.dir) < 0:
                 self.image.clip_draw(int(self.frame) * 78, 98, 78, 98, self.x, self.y)
             else :
                 self.image.clip_draw(int(self.frame) * 78, 0, 78, 98, self.x, self.y)
-
-        draw_rectangle(*self.get_bb())
 
     def get_bb(self) :
         return self.x - 30, self.y - 50, self.x + 30, self.y + 50

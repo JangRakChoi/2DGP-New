@@ -6,9 +6,10 @@ from pico2d import *
 import game_framework
 import game_world
 import FailState
-import player_newimage
-import SuccessState
 import main_state
+import main_state_3
+import start_state
+import Pause_state
 
 from Bush2 import Bush
 from player_newimage import Player
@@ -29,14 +30,18 @@ map = None
 bushes = None
 boxes = None
 bananas = None
+bullets = None
 
 x = 640
 y = 500
+hp = 0
 TreeCount = 0
 BushCount = 0
 BoxCount = 0
 BananaCount = 0
-KeyCount = random.randint(0, 5)
+KeyCount = random.randint(0, 4)
+
+start_state.stage_num = 2
 
 def enter():
     global player, enemys, trees, x, y, map, itemslot, bushes, boxes, bananas
@@ -49,6 +54,10 @@ def enter():
     bushes = [Bush() for n in range(4)]
     boxes = [Box() for n in range(5)]
     bananas = [Banana() for n in range(2)]
+
+    global key
+    key = Key()
+    game_world.add_object(key, 1)
 
     for enemy in enemys :
         game_world.add_object(enemy, 1)
@@ -63,10 +72,6 @@ def enter():
         game_world.add_object(box, 1)
     game_world.add_object(map, 0)
 
-    global key
-    key = Key()
-    game_world.add_object(key, 1)
-
     player.hp = main_state.hp
 
 
@@ -80,30 +85,37 @@ def resume():
     pass
 
 def handle_events():
-    global map, player, BushCount, TreeCount, BoxCount, KeyCount, boxes
+    global map, player, BushCount, TreeCount, BoxCount, KeyCount, boxes, hp, BananaCount
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE :
-            game_framework.quit()
-        elif player.hp < 0 :
             game_framework.run(FailState)
+        elif player.hp <= 0 :
+            game_framework.run(FailState)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_3:
+            TreeCount = 0
+            BananaCount = 0
+            BushCount = 0
+            hp = player.hp
+            game_framework.change_state(main_state_3)
         elif map.timer > 60.0 :
             game_framework.run(FailState)
-        elif player.x > 1280 - 100 :
-            game_framework.run(SuccessState)
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_1 :
+        elif player.x > 1280 - 100 and key.collision == True :
             TreeCount = 0
+            BananaCount = 0
             BushCount = 0
-            BoxCount = 0
-            game_framework.change_state(main_state)
+            hp = player.hp
+            game_framework.change_state(main_state_3)
         elif map.timer > 300.0 :
             game_framework.run(FailState)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE :
             for box in boxes:
                 if box.collision == True :
                     box.Attack_box()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_p :
+            game_framework.push_state(Pause_state)
         else:
             player.handle_event(event)
 
@@ -166,6 +178,7 @@ def update():
 
     if player.hp < 0 :
         game_framework.run(FailState)
+
 
 def draw():
     clear_canvas()
